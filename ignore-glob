@@ -3,7 +3,7 @@
 ### Example user template
 
 # IntelliJ project files
-.idea
+zhiyu-admin/.idea
 *.iml
 .out
 .gen
@@ -13,4 +13,5 @@
 test
 static
 ignore-glob
+*.mvn
 
