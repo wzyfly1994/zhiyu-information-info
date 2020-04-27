@@ -1,0 +1,141 @@
+package com.zhiyu.config.configuration;
+
+import com.zhiyu.config.shiro.credentials.CustomCredentialsMatcher;
+import com.zhiyu.config.shiro.filter.JwtFilter;
+import com.zhiyu.config.shiro.filter.ResultAdviceFilter;
+import com.zhiyu.config.shiro.realm.CustomRealm;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.Filter;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+/**
+ * @author wengzhiyu
+ * @date 2020/01/08
+ */
+@Configuration
+public class ShiroConfiguration {
+    @Bean
+    @ConditionalOnMissingBean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator dapc = new DefaultAdvisorAutoProxyCreator();
+        dapc.setProxyTargetClass(true);
+        return dapc;
+    }
+
+
+    @Bean("customCredentialsMatcher")
+    public CustomCredentialsMatcher customCredentialsMatcher() {
+        return new CustomCredentialsMatcher();
+    }
+
+    /**
+     * 将自己的验证方式加入容器
+     *
+     * @return CustomRealm
+     */
+    @Bean
+    public CustomRealm myShiroRealm(CustomCredentialsMatcher customCredentialsMatcher) {
+        return new CustomRealm(customCredentialsMatcher);
+    }
+
+
+    /**
+     * 配置保存sessionId的cookie
+     * 注意：这里的cookie 不是上面的记住我 cookie 记住我需要一个cookie session管理 也需要自己的cookie
+     *
+     * @return simpleCookie
+     */
+    @Bean
+    public SimpleCookie sessionIdCookie() {
+        //是cookie的名称
+        SimpleCookie simpleCookie = new SimpleCookie("sid");
+        simpleCookie.setHttpOnly(true);
+        //maxAge=-1表示浏览器关闭时失效此Cookie
+        simpleCookie.setMaxAge(-1);
+        return simpleCookie;
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+        return new ServletContainerSessionManager();
+    }
+
+    @Bean
+    public ExecutorServiceSessionValidationScheduler sessionValidationScheduler() {
+        ExecutorServiceSessionValidationScheduler scheduler = new ExecutorServiceSessionValidationScheduler();
+        scheduler.setInterval(7200);
+        return scheduler;
+    }
+
+    /**
+     * 权限管理，配置主要是Realm的管理认证
+     *
+     * @return
+     */
+    @Bean
+    public SecurityManager securityManager(CustomCredentialsMatcher customCredentialsMatcher) {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(myShiroRealm(customCredentialsMatcher));
+        securityManager.setSessionManager(sessionManager());
+        return securityManager;
+    }
+
+
+    /**
+     * Filter工厂，设置对应的过滤条件和跳转条件
+     *
+     * @param securityManager
+     * @return
+     */
+    @Bean
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
+        //拦截器
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        // 配置不会被拦截的链接 顺序判断
+        filterChainDefinitionMap.put("/system/**", "anon");
+        filterChainDefinitionMap.put("/swagger**/**", "anon");
+        filterChainDefinitionMap.put("/**/swagger**/**", "anon");
+        filterChainDefinitionMap.put("/web/**", "jwtFilter[1,3],result,perms[57d24cd8-43bd-4f87-a678-221d2643ffec]");
+        //添加自己的过滤器
+        Map<String, Filter> filterMap = new HashMap<>(4);
+        filterMap.put("result", new ResultAdviceFilter());
+        filterMap.put("jwtFilter", new JwtFilter());
+        shiroFilterFactoryBean.setFilters(filterMap);
+        //未授权界面;
+        shiroFilterFactoryBean.setLoginUrl("/system/loginError");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return shiroFilterFactoryBean;
+    }
+
+
+    /**
+     * 加入注解的使用，不加入这个注解不生效
+     *
+     * @param securityManager
+     * @return authorizationAttributeSourceAdvisor
+     */
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
+    }
+
+
+}

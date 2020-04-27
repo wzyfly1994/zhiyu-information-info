@@ -1,0 +1,26 @@
+
+# 上下文路径及端口设置
+# service 端口
+server:
+  port: 8099
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /
+
+
+spring:
+    application:
+      name: spring-cloud-consul-producer
+    cloud:
+      consul:
+        host: localhost
+        port: 8500
+        discovery:
+          serviceName: service-producer
+
+
+
+
+
+
