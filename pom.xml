@@ -12,6 +12,7 @@
 
     <modules>
         <module>zhiyu-admin</module>
+        <module>zhiyu-gateway</module>
     </modules>
 
     <parent>
@@ -20,4 +21,56 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/>
     </parent>
+
+    <properties>
+        <shiro.version>1.4.0</shiro.version>
+        <jwt.version>0.9.1</jwt.version>
+        <java.version>1.8</java.version>
+        <lombok.version>1.18.10</lombok.version>
+        <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.62</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- 工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>2.8.0</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
 </project>

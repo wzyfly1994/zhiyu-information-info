@@ -17,7 +17,7 @@ import java.util.*;
  * @author wengzhiyu
  * @date 2020/1/10
  */
-@SpringBootTest(classes = DemoApplication.class)
+@SpringBootTest(classes = AdminApplication.class)
 @RunWith(SpringRunner.class)
 public class Test01 {
     @Resource

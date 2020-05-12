@@ -6,7 +6,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
   servlet:
-    context-path: /
+    context-path: /admin
 
 
 spring:

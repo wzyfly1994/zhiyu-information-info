@@ -12,10 +12,10 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 7200)
-public class DemoApplication {
+public class AdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(AdminApplication.class, args);
     }
 
 }

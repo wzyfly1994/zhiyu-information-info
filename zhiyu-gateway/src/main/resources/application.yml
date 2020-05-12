@@ -1,0 +1,14 @@
+server:
+  servlet:
+    context-path:
+  port: 8004
+
+service:
+  registry:
+    expose-host: 127.0.0.1
+    expose-port: 8029
+    consul-host: 127.0.0.1
+    consul-port: 8500
+
+logging:
+  com.zhiyu.gateway: info
