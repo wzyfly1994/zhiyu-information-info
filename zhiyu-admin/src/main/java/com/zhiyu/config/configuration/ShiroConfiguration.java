@@ -111,6 +111,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/system/**", "anon");
         filterChainDefinitionMap.put("/swagger**/**", "anon");
         filterChainDefinitionMap.put("/**/swagger**/**", "anon");
+        filterChainDefinitionMap.put("/v2/api-docs/**", "anon");
         filterChainDefinitionMap.put("/web/**", "jwtFilter[1,3],result,perms[57d24cd8-43bd-4f87-a678-221d2643ffec]");
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);

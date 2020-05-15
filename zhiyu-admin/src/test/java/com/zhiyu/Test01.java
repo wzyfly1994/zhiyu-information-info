@@ -5,6 +5,7 @@ import com.zhiyu.dao.system.SystemUserRepository;
 import com.zhiyu.dao.system.SystemUserRoleRepository;
 import com.zhiyu.entity.system.SystemLoginErrorLog;
 import com.zhiyu.util.RedisUtil;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,36 +30,41 @@ public class Test01 {
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    String aa;
+
+    @Resource
+    String ass11;
+
 
     public void test() {
         SystemLoginErrorLog systemLoginErrorLog = new SystemLoginErrorLog();
         systemLoginErrorLog.setAccount("ucic");
         systemLoginErrorLog.setCreateTime(new Date());
-        boolean is=redisUtil.set("er", systemLoginErrorLog);
+        boolean is = redisUtil.set("er", systemLoginErrorLog);
         System.out.println(is);
 
 
-         redisUtil.zSet("aa:cc:bb","1",3.5);
+        redisUtil.zSet("aa:cc:bb", "1", 3.5);
 
 
+        Map<String, Object> map = new HashMap<>(3);
+        map.put("MapKey1", 123);
+        map.put("MapKe2", 321);
+        redisUtil.hmset("Map", map);
 
-        Map<String,Object> map=new HashMap<>(3);
-        map.put("MapKey1",123);
-        map.put("MapKe2",321);
-        redisUtil.hmset("Map",map);
 
-
-        List<Integer> list=new ArrayList<>(16);
+        List<Integer> list = new ArrayList<>(16);
         list.add(111);
         list.add(222);
         list.add(333);
-        redisUtil.lSet("List",list);
+        redisUtil.lSet("List", list);
 
-        redisUtil.sSet("set","1","22");
+        redisUtil.sSet("set", "1", "22");
 
-        long time=1000L;
-        Date date=new Date(time);
-        System.out.println(DateUtil.format(date,"HH:mm:ss"));
+        long time = 1000L;
+        Date date = new Date(time);
+        System.out.println(DateUtil.format(date, "HH:mm:ss"));
         String redisKey = "errorLogin:wzy";
         // AtomicInteger errorLoginConut = (AtomicInteger) redisUtil.get(redisKey);
         // AtomicInteger errorLoginConut = new AtomicInteger((Integer) redisUtil.get(redisKey));
@@ -71,4 +77,12 @@ public class Test01 {
 //        String seesionId = request.getSession().getId();
 //        System.out.println(seesionId);
 //    }
+
+
+    @Test
+    public void Test055() {
+        System.out.println(aa);
+        System.out.println(ass11);
+    }
+
 }

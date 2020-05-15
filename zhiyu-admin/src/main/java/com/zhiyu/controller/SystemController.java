@@ -38,7 +38,13 @@ public class SystemController {
 
 
     @GetMapping("welcome")
+    public String welcome() {
+        return "welcome";
+    }
+
+    @GetMapping("test")
     public String test() {
+        int a=5/0;
         return "welcome";
     }
 

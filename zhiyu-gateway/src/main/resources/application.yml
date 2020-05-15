@@ -1,14 +1,28 @@
-server:
-  servlet:
-    context-path:
-  port: 8004
+spring:
+  profiles:
+    active: dev
+  application:
+    name: geteway
+  cloud:
+    consul:
+      host: ${service.registry.consul-host}
+      port: ${service.registry.consul-port}
+      discovery:
+        health-check-interval: 5s
+        serviceName: ${spring.application.name}
+        health-check-url: http://${service.registry.expose-host}:${service.registry.expose-port}${management.server.servlet.context-path}/info
+        enabled: true
+        # 默认设置queryPassing=false，即返回所有的服务，包括down掉的。通过配置改为true则可返回所有健康检查通过的服务
+        query-passing: true
+        prefer-ip-address: true
+    gateway:
+      routes:
+        - id: 核心服务组件
+          uri: lb://admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            #设置StripPrefix=1表示从二级url路径转发  http://localhost:port/admin/test将会转发到http://{admin}/test,表示路由时会去除/admin/
+            - StripPrefix=1
 
-service:
-  registry:
-    expose-host: 127.0.0.1
-    expose-port: 8029
-    consul-host: 127.0.0.1
-    consul-port: 8500
 
-logging:
-  com.zhiyu.gateway: info

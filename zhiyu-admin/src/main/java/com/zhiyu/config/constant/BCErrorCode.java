@@ -1,7 +1,8 @@
 package com.zhiyu.config.constant;
 
 /**
- * @author qiuxinlin
+ * @author wengzhiyu
+ * @date 2020/01/07
  */
 public enum BCErrorCode {
     /**

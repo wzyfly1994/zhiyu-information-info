@@ -26,8 +26,14 @@
         <shiro.version>1.4.0</shiro.version>
         <jwt.version>0.9.1</jwt.version>
         <java.version>1.8</java.version>
+        <commons-pool.version>2.8.0</commons-pool.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <fastjson.version>1.2.62</fastjson.version>
+        <hutool.version>5.1.0</hutool.version>
         <lombok.version>1.18.10</lombok.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+        <swagger2.version>2.9.2</swagger2.version>
     </properties>
 
     <dependencyManagement>
@@ -36,7 +42,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.62</version>
+                <version>${fastjson.version}</version>
             </dependency>
 
             <dependency>
@@ -49,7 +55,7 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>5.1.0</version>
+                <version>${hutool.version}</version>
             </dependency>
 
             <dependency>
@@ -67,9 +73,33 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
-                <version>2.8.0</version>
+                <version>${commons-pool.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+
+            <!-- swagger2 依赖 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
