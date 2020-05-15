@@ -22,7 +22,7 @@ spring:
           predicates:
             - Path=/admin/**
           filters:
-            #设置StripPrefix=1表示从二级url路径转发  http://localhost:port/admin/test将会转发到http://{admin}/test,表示路由时会去除/admin/
+            #设置StripPrefix=1表示从二级url路径转发  http://localhost:port/admin/test将会转发到http://{admin}/test
             - StripPrefix=1
 
 
