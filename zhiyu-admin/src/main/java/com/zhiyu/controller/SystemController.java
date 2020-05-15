@@ -42,11 +42,6 @@ public class SystemController {
         return "welcome";
     }
 
-    @GetMapping("test")
-    public String test() {
-        int a=5/0;
-        return "welcome";
-    }
 
     @GetMapping("loginError")
     public ResponseData message() {
