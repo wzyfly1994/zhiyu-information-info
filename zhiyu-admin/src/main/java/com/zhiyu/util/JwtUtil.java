@@ -35,7 +35,7 @@ public class JwtUtil {
         boolean code = true;
         String msg = "";
         try {
-            Claims body = Jwts.parser().setSigningKey(Constants.JWT_SECRET).parseClaimsJws(token).getBody();
+            Jwts.parser().setSigningKey(Constants.JWT_SECRET).parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException e) {
             // token已过期
             code = false;
@@ -57,7 +57,6 @@ public class JwtUtil {
             code = false;
             msg = "token为空，请重新登录";
         }
-
         jsonObject.put("code", code);
         jsonObject.put("msg", msg);
         return jsonObject;

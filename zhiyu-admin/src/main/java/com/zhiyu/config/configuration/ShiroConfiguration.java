@@ -1,9 +1,10 @@
 package com.zhiyu.config.configuration;
 
-import com.zhiyu.config.shiro.credentials.CustomCredentialsMatcher;
-import com.zhiyu.config.shiro.filter.JwtFilter;
-import com.zhiyu.config.shiro.filter.ResultAdviceFilter;
-import com.zhiyu.config.shiro.realm.CustomRealm;
+import com.zhiyu.common.shiro.credentials.CustomCredentialsMatcher;
+import com.zhiyu.common.shiro.filter.JwtFilter;
+import com.zhiyu.common.shiro.filter.RoleAutoFilter;
+import com.zhiyu.common.shiro.realm.CustomRealm;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @date 2020/01/08
  */
 @Configuration
+@Slf4j
 public class ShiroConfiguration {
     @Bean
     @ConditionalOnMissingBean
@@ -105,21 +107,28 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+        shiroFilterFactoryBean.setLoginUrl("/user/loginError");
         //拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/system/**", "anon");
-        filterChainDefinitionMap.put("/swagger**/**", "anon");
+        // 配置拦截的链接 顺序判断  anon表示不需要拦截
+        filterChainDefinitionMap.put("/user/loginError", "anon");
         filterChainDefinitionMap.put("/**/swagger**/**", "anon");
         filterChainDefinitionMap.put("/v2/api-docs/**", "anon");
-        filterChainDefinitionMap.put("/web/**", "jwtFilter[1,3],result,perms[57d24cd8-43bd-4f87-a678-221d2643ffec]");
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/user/login", "anon");
+        filterChainDefinitionMap.put("/user/signIn", "anon");
+        //使用自定义过滤器拦截除上边以外的所有请求
+        // 谁在前就先执行谁   jwtFilter先执行  只有jwtFilter 中的isAccessAllowed方法返回为true 才会执行roleFilter中的方法
+        filterChainDefinitionMap.put("/**", "jwtFilter,roleFilter");
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);
-        filterMap.put("result", new ResultAdviceFilter());
+       // filterMap.put("result", new ResultAdviceFilter());
         filterMap.put("jwtFilter", new JwtFilter());
+        filterMap.put("roleFilter", new RoleAutoFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
-        //未授权界面;
-        shiroFilterFactoryBean.setLoginUrl("/system/loginError");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

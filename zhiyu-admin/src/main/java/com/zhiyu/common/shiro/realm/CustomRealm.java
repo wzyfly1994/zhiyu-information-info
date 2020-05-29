@@ -1,4 +1,4 @@
-package com.zhiyu.config.shiro.realm;
+package com.zhiyu.common.shiro.realm;
 
 import com.zhiyu.dao.system.*;
 import com.zhiyu.entity.system.*;
@@ -52,13 +52,13 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("11111111111111111111111");
+        System.out.println("=================doGetAuthorizationInfo==================================");
         //获取登录用户名
-        String acconut = (String) principalCollection.getPrimaryPrincipal();
+        String account = (String) principalCollection.getPrimaryPrincipal();
         List<String> roleList = new ArrayList<>();
         List<String> permissionList = new ArrayList<>();
         SystemUser systemUser = new SystemUser();
-        systemUser.setAccount(acconut);
+        systemUser.setAccount(account);
         //获取拥有的角色
         List<Long> userList = new ArrayList<>();
         //根据用户名去数据库查询用户信息
@@ -80,8 +80,16 @@ public class CustomRealm extends AuthorizingRealm {
         return simpleAuthorizationInfo;
     }
 
+    /**
+     * 获取身份验证信息
+     * Shiro中，最终是通过 Realm 来获取应用程序中的用户、角色及权限信息的。
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        System.out.println("=================cationInfo==================================");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         SystemUser systemUser = new SystemUser();
         systemUser.setAccount(token.getUsername());

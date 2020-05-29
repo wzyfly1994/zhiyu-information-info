@@ -8,17 +8,14 @@ import java.io.IOException;
 /**
  * @author wzy
  */
-public class ResponseData<T> {
+public class ResponseData {
 
-    private T data;
+    private Object data;
     private String msg;
     private Integer code;
 
     public Boolean isSuccess() {
-        if (this.code.equals(BCErrorCode.SUCCESS.getCode())) {
-            return true;
-        }
-        return false;
+        return this.code.equals(BCErrorCode.SUCCESS.getCode());
     }
 
     public static ResponseData success() {
@@ -67,11 +64,11 @@ public class ResponseData<T> {
     }
 
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
@@ -79,7 +76,7 @@ public class ResponseData<T> {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    private void setMsg(String msg) {
         this.msg = msg;
     }
 
@@ -87,7 +84,7 @@ public class ResponseData<T> {
         return code;
     }
 
-    public void setCode(Integer code) {
+    private void setCode(Integer code) {
         this.code = code;
     }
 }

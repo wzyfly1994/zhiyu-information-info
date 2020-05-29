@@ -1,5 +1,5 @@
 
-package com.zhiyu.config.shiro.credentials;
+package com.zhiyu.common.shiro.credentials;
 
 import com.zhiyu.util.RedisUtil;
 import org.apache.shiro.authc.*;
@@ -8,6 +8,7 @@ import org.apache.shiro.crypto.hash.Sha384Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -40,7 +41,7 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
                 errCount = errorLoginCount;
                 errCount.incrementAndGet();
             }
-            redisUtil.set(redisKey, errCount.get(), 1800);
+            redisUtil.set(redisKey, errCount.get(), TimeUnit.MINUTES.toSeconds(30));
             throw new UnknownAccountException("账号或密码错误");
         }
         return true;

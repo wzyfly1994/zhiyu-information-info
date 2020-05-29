@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.zhiyu.dao.system.SystemUserRepository;
 import com.zhiyu.dao.system.SystemUserRoleRepository;
 import com.zhiyu.entity.system.SystemLoginErrorLog;
+import com.zhiyu.entity.system.SystemUser;
 import com.zhiyu.util.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,12 +30,6 @@ public class Test01 {
 
     @Autowired
     RedisUtil redisUtil;
-
-    @Autowired
-    String aa;
-
-    @Resource
-    String ass11;
 
 
     public void test() {
@@ -81,8 +76,8 @@ public class Test01 {
 
     @Test
     public void Test055() {
-        System.out.println(aa);
-        System.out.println(ass11);
+        Optional<SystemUser> optionalSystemUser = systemUserRepository.findByAccountOrPhone("wzy", "110");
+        System.out.println(optionalSystemUser.isPresent());
     }
 
 }

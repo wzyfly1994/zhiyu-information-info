@@ -1,4 +1,4 @@
-package com.zhiyu.config.exception;
+package com.zhiyu.common.exception;
 
 
 import com.zhiyu.config.constant.BCErrorCode;

@@ -1,4 +1,4 @@
-package com.zhiyu.config.exception;
+package com.zhiyu.common.exception;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
@@ -129,10 +129,12 @@ public class GlobalExceptionHandler implements ApplicationListener<ApplicationEv
         log.error("异常", exception);
         String message = exception.getMessage();
         if (StringUtils.isNotBlank(message)) {
-            if (message.contains("Data too long")) {
+            String info="Data too long";
+            if (message.contains(info)) {
                 return ResponseData.error("数据太长");
             }
-            if (message.contains("doesn't have a default value")) {
+            String infos="doesn't have a default value";
+            if (message.contains(infos)) {
                 return ResponseData.error("数据库缺少默认参数");
             }
         }
