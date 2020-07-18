@@ -1,6 +1,8 @@
 package com.zhiyu.entity.system;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.io.Serializable;
 @Data
 @Table(name = "system_role_permission")
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class SystemRolePermission  implements Serializable {
 
     private static final long serialVersionUID = -7756080639525873726L;

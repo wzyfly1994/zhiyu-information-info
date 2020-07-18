@@ -4,7 +4,6 @@ import org.apache.shiro.web.filter.authz.AuthorizationFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.IOException;
 
 /**
  * @author wengzhiyu
@@ -14,6 +13,7 @@ public class RoleAutoFilter extends AuthorizationFilter {
 
     /**
      * 返回为false才会执行onAccessDenied
+     *
      * @param servletRequest
      * @param servletResponse
      * @param o
@@ -28,12 +28,13 @@ public class RoleAutoFilter extends AuthorizationFilter {
 //        subject.isPermitted("aa");
 //        Set<String> roles = CollectionUtils.asSet(rolesArray);
 //        subject.hasRole("");
-        return true;
+        return false;
     }
 
-    @Override
-    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
-        return true;
-    }
+//    @Override
+//    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
+//        return false;
+//    }
+
 
 }

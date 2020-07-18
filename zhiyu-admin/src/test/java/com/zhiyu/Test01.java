@@ -28,6 +28,7 @@ public class Test01 {
     @Resource
     private SystemUserRepository systemUserRepository;
 
+
     @Autowired
     RedisUtil redisUtil;
 

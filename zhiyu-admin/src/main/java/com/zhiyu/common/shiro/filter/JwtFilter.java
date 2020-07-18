@@ -14,8 +14,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
+ * 用户认证（可以理解为登陆）叫Authentication，用户授权叫Authorization
+ *
  * @author wengzhiyu
  * @date 2020/5/28
  */
@@ -44,8 +47,11 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             if (!isValid) {
                 throw new BusinessException(msg);
             }
+            return true;
+        } else {
+            errorResponse(response);
+            return false;
         }
-        return true;
     }
 
     /**
@@ -76,5 +82,18 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         }
         return super.preHandle(request, response);
     }
+
+    /**
+     * 未授权的跳转
+     */
+    private void errorResponse(ServletResponse response) {
+        try {
+            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+            httpServletResponse.sendRedirect("/admin/user/loginError");
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
 
 }

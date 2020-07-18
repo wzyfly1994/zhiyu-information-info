@@ -2,6 +2,7 @@ package com.zhiyu.config.configuration;
 
 import com.zhiyu.common.shiro.credentials.CustomCredentialsMatcher;
 import com.zhiyu.common.shiro.filter.JwtFilter;
+import com.zhiyu.common.shiro.filter.ResultAdviceFilter;
 import com.zhiyu.common.shiro.filter.RoleAutoFilter;
 import com.zhiyu.common.shiro.realm.CustomRealm;
 import lombok.extern.slf4j.Slf4j;
@@ -108,7 +109,7 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/user/loginError");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/user/loginError");
         //拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 配置拦截的链接 顺序判断  anon表示不需要拦截
@@ -120,12 +121,14 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/user/login", "anon");
         filterChainDefinitionMap.put("/user/signIn", "anon");
+        filterChainDefinitionMap.put("/info", "anon");
         //使用自定义过滤器拦截除上边以外的所有请求
         // 谁在前就先执行谁   jwtFilter先执行  只有jwtFilter 中的isAccessAllowed方法返回为true 才会执行roleFilter中的方法
-        filterChainDefinitionMap.put("/**", "jwtFilter,roleFilter");
+        filterChainDefinitionMap.put("/**", "jwtFilter");
+       // shiroFilterFactoryBean.setFilterChainDefinitions();
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);
-       // filterMap.put("result", new ResultAdviceFilter());
+        filterMap.put("result", new ResultAdviceFilter());
         filterMap.put("jwtFilter", new JwtFilter());
         filterMap.put("roleFilter", new RoleAutoFilter());
         shiroFilterFactoryBean.setFilters(filterMap);

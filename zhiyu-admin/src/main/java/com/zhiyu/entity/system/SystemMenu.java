@@ -1,6 +1,8 @@
 package com.zhiyu.entity.system;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +15,8 @@ import java.util.Date;
 @Data
 @Table(name = "system_menu")
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class SystemMenu  implements Serializable {
 
     private static final long serialVersionUID = -3470801336745091477L;

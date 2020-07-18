@@ -1,6 +1,8 @@
 package com.zhiyu.entity.system;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "system_user")
+@DynamicUpdate
+@DynamicInsert
 public class SystemUser  implements Serializable {
 
     private static final long serialVersionUID = 8062449516584938156L;
