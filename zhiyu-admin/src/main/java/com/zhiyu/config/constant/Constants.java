@@ -13,7 +13,7 @@ public class Constants {
     /**
      * 后台登录令牌
      */
-    public static final String LOGIN_TOKEN = "login_token";
+    public static final String LOGIN_TOKEN = "login_token:";
 
     /**
      * 后台登录用户

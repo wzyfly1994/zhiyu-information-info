@@ -47,9 +47,9 @@ public class AboutUserServiceImpl implements AboutUserService {
             objectMap.put("account", systemUserDto.getAccount());
             objectMap.put("timestamp", System.currentTimeMillis());
             String jwtToken = JwtUtil.getToken(objectMap);
-            //修改session会话
+            //session会话
             Session session = SecurityUtils.getSubject().getSession();
-            session.setAttribute(Constants.LOGIN_TOKEN, jwtToken);
+            session.setAttribute(Constants.LOGIN_TOKEN + systemUserDto.getAccount(), jwtToken);
             SystemUserVo vo = new SystemUserVo();
             vo.setToken(jwtToken);
             return ResponseData.success(vo);
