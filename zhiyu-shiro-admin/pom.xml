@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>com.zhiyu.admin</groupId>
-    <artifactId>zhiyu-admin</artifactId>
+    <artifactId>zhiyu-shiro-admin</artifactId>
     <version>1.0</version>
-    <name>zhiyu-admin</name>
-    <description>用户管理</description>
+    <name>zhiyu-shiro-admin</name>
+    <description>shiro用户管理</description>
 
     <dependencies>
         <dependency>

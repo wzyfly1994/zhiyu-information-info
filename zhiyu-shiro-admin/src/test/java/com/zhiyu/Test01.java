@@ -19,7 +19,7 @@ import java.util.*;
  * @author wengzhiyu
  * @date 2020/1/10
  */
-@SpringBootTest(classes = AdminApplication.class)
+@SpringBootTest(classes = ShiroAdminApplication.class)
 @RunWith(SpringRunner.class)
 public class Test01 {
     @Resource

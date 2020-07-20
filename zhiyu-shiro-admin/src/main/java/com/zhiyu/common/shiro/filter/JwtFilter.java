@@ -89,7 +89,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     private void errorResponse(ServletResponse response) {
         try {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-            httpServletResponse.sendRedirect("/admin/user/loginError");
+            httpServletResponse.sendRedirect("/shiro-admin/user/loginError");
         } catch (IOException e) {
             log.error(e.getMessage());
         }

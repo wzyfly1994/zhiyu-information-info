@@ -14,10 +14,10 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableDiscoveryClient
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 7200)
 @EnableFeignClients
-public class AdminApplication {
+public class ShiroAdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args);
+        SpringApplication.run(ShiroAdminApplication.class, args);
     }
 
 }
