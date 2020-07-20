@@ -40,7 +40,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if (isToken) {
             //验证token
             HttpServletRequest req = (HttpServletRequest) request;
-            String token = req.getHeader(Constants.TOKEN);
+            String token = req.getHeader(Constants.TOKEN_HEADER);
             JSONObject result = JwtUtil.validateToken(token);
             boolean isValid = result.getBooleanValue("code");
             String msg = result.getString("msg");
@@ -60,7 +60,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
-        String token = req.getHeader(Constants.TOKEN);
+        String token = req.getHeader(Constants.TOKEN_HEADER);
         return token != null;
     }
 

@@ -31,6 +31,8 @@ public class JwtUtil {
     }
 
     public static JSONObject validateToken(String token) {
+        token=token.replace(Constants.TOKEN_PREFIX,"");
+        System.out.println("token+++"+token);
         JSONObject jsonObject = new JSONObject();
         boolean code = true;
         String msg = "";

@@ -5,6 +5,13 @@ package com.zhiyu.config.constant;
  * @date 2020/01/07
  */
 public class Constants {
+
+    /**
+     * header字段
+     */
+    public static final String TOKEN_HEADER = "Authorization";
+    public static final String TOKEN_PREFIX = "Bearer ";
+
     /**
      * SECRET
      */

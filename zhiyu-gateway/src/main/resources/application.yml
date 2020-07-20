@@ -18,9 +18,9 @@ spring:
     gateway:
       routes:
         - id: 核心服务组件
-          uri: lb://admin
+          uri: lb://shiro-admin
           predicates:
-            - Path=/admin/**
+            - Path=/shiro-admin/**
           filters:
             #设置StripPrefix=1表示从二级url路径转发  http://localhost:port/admin/test将会转发到http://{admin}/test
             - StripPrefix=1

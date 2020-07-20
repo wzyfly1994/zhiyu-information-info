@@ -18,8 +18,8 @@ public class CustomerRouteConfig {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 // 公共服务组件
-                .route(r -> r.path("/admin/**")
-                        .uri("lb://admin/")
+                .route(r -> r.path("/shiro-admin/**")
+                        .uri("lb://shiro-admin/")
                 )
                 .build();
     }
