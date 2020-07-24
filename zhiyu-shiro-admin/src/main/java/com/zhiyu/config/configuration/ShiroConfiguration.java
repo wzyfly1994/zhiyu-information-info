@@ -108,7 +108,7 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+        // 未授权的页面,如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/user/loginError");
         //拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -124,13 +124,14 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/info", "anon");
         //使用自定义过滤器拦截除上边以外的所有请求
         // 谁在前就先执行谁   jwtFilter先执行  只有jwtFilter 中的isAccessAllowed方法返回为true 才会执行roleFilter中的方法
-        filterChainDefinitionMap.put("/**", "jwtFilter");
-       // shiroFilterFactoryBean.setFilterChainDefinitions();
+        filterChainDefinitionMap.put("/**", "jwt,role[abc],authc");
+        //filterChainDefinitionMap.put("/**", "jwtFilter,authc");
+        // shiroFilterFactoryBean.setFilterChainDefinitions();
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);
+        filterMap.put("jwt", new JwtFilter());
+        filterMap.put("role", new RoleAutoFilter());
         filterMap.put("result", new ResultAdviceFilter());
-        filterMap.put("jwtFilter", new JwtFilter());
-        filterMap.put("roleFilter", new RoleAutoFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

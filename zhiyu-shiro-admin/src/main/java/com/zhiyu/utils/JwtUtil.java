@@ -1,4 +1,4 @@
-package com.zhiyu.util;
+package com.zhiyu.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zhiyu.config.constant.Constants;
@@ -32,7 +32,6 @@ public class JwtUtil {
 
     public static JSONObject validateToken(String token) {
         token=token.replace(Constants.TOKEN_PREFIX,"");
-        System.out.println("token+++"+token);
         JSONObject jsonObject = new JSONObject();
         boolean code = true;
         String msg = "";

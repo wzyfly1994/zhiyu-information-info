@@ -3,7 +3,7 @@ package com.zhiyu.controller;
 import com.zhiyu.config.constant.Constants;
 import com.zhiyu.entity.system.dto.SystemUserDto;
 import com.zhiyu.service.system.AboutUserService;
-import com.zhiyu.util.ResponseData;
+import com.zhiyu.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

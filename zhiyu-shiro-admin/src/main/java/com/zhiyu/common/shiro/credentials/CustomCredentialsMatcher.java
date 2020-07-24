@@ -1,7 +1,7 @@
 
 package com.zhiyu.common.shiro.credentials;
 
-import com.zhiyu.util.RedisUtil;
+import com.zhiyu.utils.RedisUtil;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.crypto.hash.Sha384Hash;
@@ -24,6 +24,7 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authToken, AuthenticationInfo info) {
+        System.out.println("doCredentialsMatch===================================================");
         UsernamePasswordToken token = (UsernamePasswordToken) authToken;
         String account = (String) authToken.getPrincipal();
         Object tokenCredentials = String.valueOf(token.getPassword());

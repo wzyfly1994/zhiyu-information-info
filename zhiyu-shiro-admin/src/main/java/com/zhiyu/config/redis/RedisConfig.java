@@ -1,6 +1,6 @@
 package com.zhiyu.config.redis;
 
-import com.zhiyu.util.RedisUtil;
+import com.zhiyu.utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;

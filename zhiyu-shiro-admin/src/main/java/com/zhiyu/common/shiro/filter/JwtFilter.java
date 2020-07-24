@@ -3,7 +3,8 @@ package com.zhiyu.common.shiro.filter;
 import com.alibaba.fastjson.JSONObject;
 import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.config.constant.Constants;
-import com.zhiyu.util.JwtUtil;
+import com.zhiyu.utils.FilterUtil;
+import com.zhiyu.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -14,7 +15,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * 用户认证（可以理解为登陆）叫Authentication，用户授权叫Authorization
@@ -49,7 +49,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             }
             return true;
         } else {
-            errorResponse(response);
+            FilterUtil.errorResponse(response);
             return false;
         }
     }
@@ -81,18 +81,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             return false;
         }
         return super.preHandle(request, response);
-    }
-
-    /**
-     * 未授权的跳转
-     */
-    private void errorResponse(ServletResponse response) {
-        try {
-            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-            httpServletResponse.sendRedirect("/shiro-admin/user/loginError");
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
     }
 
 

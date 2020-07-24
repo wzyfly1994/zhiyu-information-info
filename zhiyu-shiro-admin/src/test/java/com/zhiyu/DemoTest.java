@@ -10,6 +10,7 @@ public class DemoTest {
 
 
     public static void main(String[] args) {
+
         System.out.println(TimeUnit.MINUTES.toSeconds(30));
         System.out.println(TimeUnit.DAYS.toHours(1));
     }

@@ -3,7 +3,7 @@ package com.zhiyu.service.system;
 import com.zhiyu.entity.system.SystemRole;
 import com.zhiyu.entity.system.SystemUser;
 import com.zhiyu.entity.system.dto.SystemUserDto;
-import com.zhiyu.util.ResponseData;
+import com.zhiyu.utils.ResponseData;
 
 /**
  * @author wengzhiyu

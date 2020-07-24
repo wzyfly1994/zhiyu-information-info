@@ -1,4 +1,4 @@
-package com.zhiyu.util;
+package com.zhiyu.utils;
 
 
 import org.slf4j.Logger;

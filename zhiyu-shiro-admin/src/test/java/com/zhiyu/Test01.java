@@ -5,7 +5,7 @@ import com.zhiyu.dao.system.SystemUserRepository;
 import com.zhiyu.dao.system.SystemUserRoleRepository;
 import com.zhiyu.entity.system.SystemLoginErrorLog;
 import com.zhiyu.entity.system.SystemUser;
-import com.zhiyu.util.RedisUtil;
+import com.zhiyu.utils.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

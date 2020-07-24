@@ -73,8 +73,8 @@ public class CustomRealm extends AuthorizingRealm {
         }
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        System.out.println("roleList++++++++++++++++"+roleList);
-        System.out.println("permissionList++++++++++++++++"+permissionList);
+        System.out.println("roleList++++++++++++++++" + roleList);
+        System.out.println("permissionList++++++++++++++++" + permissionList);
         simpleAuthorizationInfo.addRoles(roleList);
         simpleAuthorizationInfo.addStringPermissions(permissionList);
         return simpleAuthorizationInfo;
@@ -83,6 +83,7 @@ public class CustomRealm extends AuthorizingRealm {
     /**
      * 获取身份验证信息
      * Shiro中，最终是通过 Realm 来获取应用程序中的用户、角色及权限信息的。
+     *
      * @param authenticationToken
      * @return
      * @throws AuthenticationException
@@ -106,6 +107,7 @@ public class CustomRealm extends AuthorizingRealm {
             throw new UnknownAccountException("用户未启用");
         }
         String account = user.getAccount();
+        //ByteSource.Util.bytes(account) 为加盐值
         return new SimpleAuthenticationInfo(account, user.getPassWord(), ByteSource.Util.bytes(account), getName());
     }
 

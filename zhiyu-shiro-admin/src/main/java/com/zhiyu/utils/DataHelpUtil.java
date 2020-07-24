@@ -1,4 +1,4 @@
-package com.zhiyu.util;
+package com.zhiyu.utils;
 
 import java.math.BigDecimal;
 import java.util.Collection;
