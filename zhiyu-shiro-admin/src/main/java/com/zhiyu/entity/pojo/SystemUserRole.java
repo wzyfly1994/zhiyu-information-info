@@ -1,4 +1,4 @@
-package com.zhiyu.entity.system;
+package com.zhiyu.entity.pojo;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;

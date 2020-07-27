@@ -1,4 +1,4 @@
-package com.zhiyu.entity.system.dto;
+package com.zhiyu.entity.dto;
 
 import org.apache.shiro.authc.AuthenticationToken;
 

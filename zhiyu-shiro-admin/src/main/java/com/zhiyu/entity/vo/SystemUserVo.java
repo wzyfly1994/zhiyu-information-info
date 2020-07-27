@@ -1,4 +1,4 @@
-package com.zhiyu.entity.system.vo;
+package com.zhiyu.entity.vo;
 
 import lombok.Data;
 

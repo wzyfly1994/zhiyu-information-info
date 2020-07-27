@@ -1,8 +1,8 @@
 package com.zhiyu.controller;
 
 import com.zhiyu.config.constant.Constants;
-import com.zhiyu.entity.system.dto.SystemUserDto;
-import com.zhiyu.service.system.AboutUserService;
+import com.zhiyu.entity.dto.SystemUserDto;
+import com.zhiyu.service.AboutUserService;
 import com.zhiyu.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

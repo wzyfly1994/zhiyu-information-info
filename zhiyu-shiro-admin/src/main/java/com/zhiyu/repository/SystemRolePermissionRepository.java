@@ -1,7 +1,7 @@
-package com.zhiyu.dao.system;
+package com.zhiyu.repository;
 
 import com.zhiyu.config.jpa.BaseJpaRepository;
-import com.zhiyu.entity.system.SystemRolePermission;
+import com.zhiyu.entity.pojo.SystemRolePermission;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

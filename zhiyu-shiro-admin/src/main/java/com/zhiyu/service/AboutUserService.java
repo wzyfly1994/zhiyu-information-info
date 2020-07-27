@@ -1,8 +1,8 @@
-package com.zhiyu.service.system;
+package com.zhiyu.service;
 
-import com.zhiyu.entity.system.SystemRole;
-import com.zhiyu.entity.system.SystemUser;
-import com.zhiyu.entity.system.dto.SystemUserDto;
+import com.zhiyu.entity.pojo.SystemRole;
+import com.zhiyu.entity.pojo.SystemUser;
+import com.zhiyu.entity.dto.SystemUserDto;
 import com.zhiyu.utils.ResponseData;
 
 /**

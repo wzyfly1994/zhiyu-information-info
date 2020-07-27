@@ -1,10 +1,10 @@
 package com.zhiyu;
 
 import cn.hutool.core.date.DateUtil;
-import com.zhiyu.dao.system.SystemUserRepository;
-import com.zhiyu.dao.system.SystemUserRoleRepository;
-import com.zhiyu.entity.system.SystemLoginErrorLog;
-import com.zhiyu.entity.system.SystemUser;
+import com.zhiyu.repository.SystemUserRepository;
+import com.zhiyu.repository.SystemUserRoleRepository;
+import com.zhiyu.entity.pojo.SystemLoginErrorLog;
+import com.zhiyu.entity.pojo.SystemUser;
 import com.zhiyu.utils.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;

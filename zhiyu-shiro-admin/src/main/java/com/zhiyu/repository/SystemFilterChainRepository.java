@@ -1,7 +1,7 @@
-package com.zhiyu.dao.system;
+package com.zhiyu.repository;
 
 import com.zhiyu.config.jpa.BaseJpaRepository;
-import com.zhiyu.entity.system.SystemFilterChain;
+import com.zhiyu.entity.pojo.SystemFilterChain;
 import org.springframework.stereotype.Repository;
 
 /**

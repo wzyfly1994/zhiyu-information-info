@@ -124,8 +124,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/info", "anon");
         //使用自定义过滤器拦截除上边以外的所有请求
         // 谁在前就先执行谁   jwtFilter先执行  只有jwtFilter 中的isAccessAllowed方法返回为true 才会执行roleFilter中的方法
-        filterChainDefinitionMap.put("/**", "jwt,role[abc],authc");
-        //filterChainDefinitionMap.put("/**", "jwtFilter,authc");
+        filterChainDefinitionMap.put("/role/welcome", "jwt,role[abc],authc");
+        filterChainDefinitionMap.put("/**", "jwt,authc");
         // shiroFilterFactoryBean.setFilterChainDefinitions();
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);

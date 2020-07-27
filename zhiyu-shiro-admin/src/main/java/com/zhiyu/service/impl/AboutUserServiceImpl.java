@@ -1,14 +1,14 @@
-package com.zhiyu.service.system.impl;
+package com.zhiyu.service.impl;
 
 import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.common.shiro.credentials.CustomCredentialsMatcher;
 import com.zhiyu.config.constant.Constants;
-import com.zhiyu.dao.system.SystemUserRepository;
-import com.zhiyu.entity.system.SystemRole;
-import com.zhiyu.entity.system.SystemUser;
-import com.zhiyu.entity.system.dto.SystemUserDto;
-import com.zhiyu.entity.system.vo.SystemUserVo;
-import com.zhiyu.service.system.AboutUserService;
+import com.zhiyu.repository.SystemUserRepository;
+import com.zhiyu.entity.pojo.SystemRole;
+import com.zhiyu.entity.pojo.SystemUser;
+import com.zhiyu.entity.dto.SystemUserDto;
+import com.zhiyu.entity.vo.SystemUserVo;
+import com.zhiyu.service.AboutUserService;
 import com.zhiyu.utils.JwtUtil;
 import com.zhiyu.utils.ResponseData;
 import org.apache.commons.lang3.StringUtils;

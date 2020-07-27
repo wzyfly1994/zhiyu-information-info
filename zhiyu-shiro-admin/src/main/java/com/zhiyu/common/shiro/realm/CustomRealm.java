@@ -1,7 +1,7 @@
 package com.zhiyu.common.shiro.realm;
 
-import com.zhiyu.dao.system.*;
-import com.zhiyu.entity.system.*;
+import com.zhiyu.entity.pojo.*;
+import com.zhiyu.repository.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
