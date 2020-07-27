@@ -34,7 +34,4 @@ public class SystemFilterChain implements Serializable {
 
     @Column(columnDefinition = " varchar(8) comment 'auto 系统自动创建 manual 用户创建'")
     private String type;
-
-    @Column(columnDefinition = " varchar(64) comment '方法'")
-    private String action;
 }

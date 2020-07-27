@@ -5,6 +5,7 @@ import com.zhiyu.common.shiro.filter.JwtFilter;
 import com.zhiyu.common.shiro.filter.ResultAdviceFilter;
 import com.zhiyu.common.shiro.filter.RoleAutoFilter;
 import com.zhiyu.common.shiro.realm.CustomRealm;
+import com.zhiyu.service.SystemInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
@@ -19,9 +20,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -31,6 +32,10 @@ import java.util.Map;
 @Configuration
 @Slf4j
 public class ShiroConfiguration {
+    @Resource
+    private SystemInfoService systemInfoService;
+
+
     @Bean
     @ConditionalOnMissingBean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -100,6 +105,24 @@ public class ShiroConfiguration {
 
     /**
      * Filter工厂，设置对应的过滤条件和跳转条件
+     * <p>
+     * //拦截器
+     * Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+     * // 配置拦截的链接 顺序判断  anon表示不需要拦截
+     * filterChainDefinitionMap.put("/user/loginError", "anon");
+     * filterChainDefinitionMap.put("/swagger/**", "anon");
+     * filterChainDefinitionMap.put("/v2/api-docs/**", "anon");
+     * filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+     * filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+     * filterChainDefinitionMap.put("/webjars/**", "anon");
+     * filterChainDefinitionMap.put("/user/login", "anon");
+     * filterChainDefinitionMap.put("/user/signIn", "anon");
+     * filterChainDefinitionMap.put("/info", "anon");
+     * //使用自定义过滤器拦截除上边以外的所有请求
+     * // 谁在前就先执行谁   jwtFilter先执行  只有jwtFilter 中的isAccessAllowed方法返回为true 才会执行roleFilter中的方法
+     * filterChainDefinitionMap.put("/role/welcome", "jwt,role[abc],authc");
+     * filterChainDefinitionMap.put("/**", "jwt,authc");
+     * shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
      *
      * @param securityManager
      * @return
@@ -110,30 +133,13 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 未授权的页面,如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/user/loginError");
-        //拦截器
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        // 配置拦截的链接 顺序判断  anon表示不需要拦截
-        filterChainDefinitionMap.put("/user/loginError", "anon");
-        filterChainDefinitionMap.put("/**/swagger**/**", "anon");
-        filterChainDefinitionMap.put("/v2/api-docs/**", "anon");
-        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
-        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
-        filterChainDefinitionMap.put("/webjars/**", "anon");
-        filterChainDefinitionMap.put("/user/login", "anon");
-        filterChainDefinitionMap.put("/user/signIn", "anon");
-        filterChainDefinitionMap.put("/info", "anon");
-        //使用自定义过滤器拦截除上边以外的所有请求
-        // 谁在前就先执行谁   jwtFilter先执行  只有jwtFilter 中的isAccessAllowed方法返回为true 才会执行roleFilter中的方法
-        filterChainDefinitionMap.put("/role/welcome", "jwt,role[abc],authc");
-        filterChainDefinitionMap.put("/**", "jwt,authc");
-        // shiroFilterFactoryBean.setFilterChainDefinitions();
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);
         filterMap.put("jwt", new JwtFilter());
         filterMap.put("role", new RoleAutoFilter());
         filterMap.put("result", new ResultAdviceFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        shiroFilterFactoryBean.setFilterChainDefinitions(systemInfoService.intiPermission());
         return shiroFilterFactoryBean;
     }
 
