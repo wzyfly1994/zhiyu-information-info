@@ -26,7 +26,7 @@ public class JwtUtil {
                 .setIssuedAt(new Date())
                 //过期时间
                 .setExpiration(getExpireTime())
-                .signWith(SignatureAlgorithm.HS512, Constants.JWT_SECRET)
+                .signWith(SignatureAlgorithm.HS512, Constants.JWT_SECRET_KEY)
                 .compact();
     }
 
@@ -36,7 +36,7 @@ public class JwtUtil {
         boolean code = true;
         String msg = "";
         try {
-            Jwts.parser().setSigningKey(Constants.JWT_SECRET).parseClaimsJws(token).getBody();
+            Jwts.parser().setSigningKey(Constants.JWT_SECRET_KEY).parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException e) {
             // token已过期
             code = false;
@@ -66,7 +66,7 @@ public class JwtUtil {
     public static Claims getClaims(String token) {
         Claims claims = null;
         try {
-            claims = Jwts.parser().setSigningKey(Constants.JWT_SECRET).parseClaimsJws(token).getBody();
+            claims = Jwts.parser().setSigningKey(Constants.JWT_SECRET_KEY).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             // token错误
             e.printStackTrace();

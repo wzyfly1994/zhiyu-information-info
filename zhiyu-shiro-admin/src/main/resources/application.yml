@@ -49,6 +49,13 @@ spring:
       namespace: zhiyu
 
 
+# 自定义属性
+custom:
+  jwt:
+    secret-key: zhiyu-secret
+
+
+
 
 
 #swagger:

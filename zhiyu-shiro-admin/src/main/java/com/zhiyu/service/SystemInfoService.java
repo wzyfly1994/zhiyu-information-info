@@ -17,7 +17,7 @@ public interface SystemInfoService {
 
 
     /**
-     * 过滤连MAP
+     * 过滤链MAP
      *
      * @return
      */
