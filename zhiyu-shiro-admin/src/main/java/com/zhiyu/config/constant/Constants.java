@@ -1,11 +1,13 @@
 package com.zhiyu.config.constant;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @author wengzhiyu
  * @date 2020/01/07
  */
+@Component
 public class Constants {
 
     /**
