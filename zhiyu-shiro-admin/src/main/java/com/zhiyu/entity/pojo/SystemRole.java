@@ -14,6 +14,7 @@ import java.util.Date;
  */
 @Data
 @Table(name = "system_role")
+@org.hibernate.annotations.Table(appliesTo = "system_role",comment="用户角色表")
 @Entity
 @DynamicUpdate
 @DynamicInsert
@@ -33,11 +34,13 @@ public class SystemRole implements Serializable {
     @Column(columnDefinition = "varchar(64) comment '角色值'")
     private String roleValue;
 
+    @Column(columnDefinition = " int(11) comment '部门id'")
+    private Long depId;
 
     @Column(columnDefinition = "tinyint(1) comment'是否有效'")
     private boolean isUse;
 
-    @Column(columnDefinition = " timestamp comment '记录时间'")
+    @Column(columnDefinition = " timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录时间'")
     private Date recordDate;
 
 

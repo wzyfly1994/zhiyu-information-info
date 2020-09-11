@@ -2,6 +2,7 @@
 package com.zhiyu.common.shiro.credentials;
 
 import com.zhiyu.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.crypto.hash.Sha384Hash;
@@ -17,6 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author wengzhiyu
  * @date 20120/01/12
  */
+@Slf4j
 public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 
     @Autowired
@@ -24,7 +26,7 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authToken, AuthenticationInfo info) {
-        System.out.println("doCredentialsMatch===================================================");
+        log.info("==========CustomCredentialsMatcher=================doCredentialsMatch=======================");
         UsernamePasswordToken token = (UsernamePasswordToken) authToken;
         String account = (String) authToken.getPrincipal();
         Object tokenCredentials = String.valueOf(token.getPassword());

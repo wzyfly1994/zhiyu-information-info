@@ -133,6 +133,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 未授权的页面,如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/user/loginError");
+        shiroFilterFactoryBean.setLoginUrl("/user/loginError");
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);
         filterMap.put("jwt", new JwtFilter());
@@ -140,6 +141,7 @@ public class ShiroConfiguration {
         filterMap.put("result", new ResultAdviceFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         shiroFilterFactoryBean.setFilterChainDefinitions(systemInfoService.intiPermission());
+        log.info("加载shiro过滤链；[{}]",systemInfoService.intiPermission());
         return shiroFilterFactoryBean;
     }
 

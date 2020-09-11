@@ -1,7 +1,9 @@
 package com.zhiyu.controller;
 
+import com.zhiyu.utils.ResponseData;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020/5/26
  */
 @RestController
-@RequestMapping("role")
+@RequestMapping("/role")
 @Api(tags = "角色模块")
 public class RoleController {
 
@@ -21,5 +23,12 @@ public class RoleController {
     public String welcome(HttpServletRequest request, HttpServletResponse response) {
         return "welcome";
     }
+
+
+    @PostMapping("/addRole")
+    public ResponseData addRole() {
+        return ResponseData.success();
+    }
+
 
 }

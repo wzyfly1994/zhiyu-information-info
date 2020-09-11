@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author wengzhiyu
@@ -56,4 +57,7 @@ public class SystemUser  implements Serializable {
 
     @Column(columnDefinition = " tinyint(1) comment '是否删除，1：是，0：否'")
     private Boolean isDelete;
+
+    @Column(columnDefinition = " timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录时间'")
+    private Date recordDate;
 }

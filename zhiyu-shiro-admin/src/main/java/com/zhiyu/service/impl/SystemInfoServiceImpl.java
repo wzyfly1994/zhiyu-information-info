@@ -43,7 +43,7 @@ public class SystemInfoServiceImpl implements SystemInfoService {
             shiroFilterChainMap.put("/**", "authc");
             return shiroFilterChainMap;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("初始化shiro过滤链错误:[{}]",e.getMessage());
             return new HashMap<>(0);
         }
 

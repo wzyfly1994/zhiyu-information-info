@@ -2,6 +2,7 @@ package com.zhiyu.common.shiro.realm;
 
 import com.zhiyu.entity.pojo.*;
 import com.zhiyu.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
  * @author wengzhiyu
  * @date 20120/01/12
  */
+@Slf4j
 public class CustomRealm extends AuthorizingRealm {
 
     @Resource
@@ -52,7 +54,7 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("=================doGetAuthorizationInfo==================================");
+        log.info("==========CustomRealm=================doGetAuthorizationInfo=======================");
         //获取登录用户名
         String account = (String) principalCollection.getPrimaryPrincipal();
         List<String> roleList = new ArrayList<>();
@@ -71,10 +73,10 @@ public class CustomRealm extends AuthorizingRealm {
             List<Long> userPermission = systemRolePermissionRepository.findAllByRoleIdIn(listRoleId).stream().map(SystemRolePermission::getPermissionId).collect(Collectors.toList());
             permissionList.addAll(systemPermissionRepository.findAllByIdIn(userPermission).stream().map(SystemPermission::getPermissionValue).collect(Collectors.toList()));
         }
+        log.info("当前角色拥有的角色列表：[{}]",roleList);
+        log.info("当前角色拥有的权限列表：[{}]",permissionList);
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        System.out.println("roleList++++++++++++++++" + roleList);
-        System.out.println("permissionList++++++++++++++++" + permissionList);
         simpleAuthorizationInfo.addRoles(roleList);
         simpleAuthorizationInfo.addStringPermissions(permissionList);
         return simpleAuthorizationInfo;
@@ -90,7 +92,7 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("=================cationInfo==================================");
+        log.info("==========CustomRealm=================cationInfo=======================");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         SystemUser systemUser = new SystemUser();
         systemUser.setAccount(token.getUsername());

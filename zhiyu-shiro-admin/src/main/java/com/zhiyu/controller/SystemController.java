@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * @date 2020/1/06
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @Api(tags = "用户模块")
 public class SystemController {
 
@@ -53,11 +53,11 @@ public class SystemController {
     }
 
 
-    @GetMapping("/getRedis")
-    public String getRedis(HttpServletRequest httpServletRequest) {
+    @GetMapping("/getRedis/{value}")
+    public String getRedis(@PathVariable String value,HttpServletRequest httpServletRequest) {
         String result;
         try {
-            result = "redis读取成功:" + httpServletRequest.getSession().getAttribute(Constants.LOGIN_TOKEN + "wzy");
+            result = "redis读取成功:" + httpServletRequest.getSession().getAttribute(Constants.LOGIN_TOKEN + value);
             System.out.println(result);
         } catch (Exception e) {
             result = "redis读取失败:" + e.getMessage();
