@@ -1,8 +1,7 @@
 package com.zhiyu;
 
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * @author wengzhiyu
@@ -12,8 +11,9 @@ public class DemoTest {
 
 
     public static void main(String[] args) {
-     Lock lock= new ReentrantLock();
-
+        for (int i = 0; i < 20; i++) {
+            System.out.println(RandomStringUtils.randomAlphanumeric(32));
+        }
     }
 
 

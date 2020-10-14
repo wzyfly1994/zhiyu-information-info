@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -39,12 +40,7 @@ public class Test01 {
 
     @Test
     public void test() {
-        //List<SystemPermission> list = systemPermissionRepository.findAllByMenuId(3L);
-        List<Long> list=systemPermissionRepository.findAllByMenuId(1L).stream().map(SystemPermission::getId).collect(Collectors.toList());
-        if(!CollectionUtils.isEmpty(list)){
-            Long id=list.get(0);
-            System.out.println(id);
-        }
+
     }
 
 }

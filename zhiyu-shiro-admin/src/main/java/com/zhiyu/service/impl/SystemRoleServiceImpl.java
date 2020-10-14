@@ -10,6 +10,7 @@ import com.zhiyu.repository.SystemRoleRepository;
 import com.zhiyu.service.SystemRoleService;
 import com.zhiyu.utils.ResponseData;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     public ResponseData addRole(SystemRoleDto systemRoleDto) {
         SystemRole systemRole = new SystemRole();
         BeanUtils.copyProperties(systemRoleDto, systemRole);
+        systemRole.setRoleValue(RandomStringUtils.randomAlphanumeric(32));
         SystemRole roleMode = systemRoleRepository.save(systemRole);
         //菜单列表
         List<Long> menuIdList = systemRoleDto.getMenuIdList();
