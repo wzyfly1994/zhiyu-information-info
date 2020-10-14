@@ -14,6 +14,7 @@ import java.util.Date;
  */
 @Data
 @Table(name = "system_permission")
+@org.hibernate.annotations.Table(appliesTo = "system_permission",comment="用户角色映射表")
 @Entity
 @DynamicUpdate
 @DynamicInsert
@@ -33,7 +34,7 @@ public class SystemPermission implements Serializable {
     private String permissionValue;
 
     @Column(columnDefinition = "varchar(64) comment '菜单Id'")
-    private String menuId;
+    private Long menuId;
 
 
     @Column(columnDefinition = "varchar(64) comment '权限描述'")

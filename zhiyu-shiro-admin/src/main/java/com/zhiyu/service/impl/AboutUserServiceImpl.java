@@ -41,6 +41,7 @@ public class AboutUserServiceImpl implements AboutUserService {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(systemUserDto.getAccount(),
                     CustomCredentialsMatcher.encrypt(systemUserDto.getPassword(), systemUserDto.getAccount()));
+            //运行这个才会执行CustomRealm
             subject.login(token);
             //生成token
             Map<String, Object> objectMap = new HashMap<>(8);

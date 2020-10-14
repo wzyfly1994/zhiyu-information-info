@@ -14,10 +14,11 @@ import java.util.Date;
  */
 @Data
 @Table(name = "system_menu")
+@org.hibernate.annotations.Table(appliesTo = "system_menu", comment = "系统菜单表")
 @Entity
 @DynamicUpdate
 @DynamicInsert
-public class SystemMenu  implements Serializable {
+public class SystemMenu implements Serializable {
 
     private static final long serialVersionUID = -3470801336745091477L;
 
@@ -25,66 +26,42 @@ public class SystemMenu  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * 菜单级别
-     */
+
     @Column(columnDefinition = " tinyint(4) comment '菜单级别'")
     private Integer level;
-    /**
-     * 菜单名称
-     */
+
     @Column(columnDefinition = " varchar(128) comment '菜单名称'")
     private String menuName;
-    /**
-     * 菜单排序号
-     */
+
     @Column(columnDefinition = " int(11) comment '菜单排序号'")
     private Integer serialNum;
-    /**
-     * 父节点ID
-     */
+
     @Column(columnDefinition = " int(11) comment '父节点ID'")
     private Long parentId;
-    /**
-     * 重定向URL
-     */
+
     @Column(columnDefinition = " varchar(255) comment '重定向URL'")
     private String redirectUrl;
-    /**
-     * 过滤URL
-     */
+
     @Column(columnDefinition = " varchar(255) comment '过滤URL'")
     private String filterUrl;
-    /**
-     * 权限值
-     */
+
     @Column(columnDefinition = " varchar(64) comment '权限值'")
     private String permissionValue;
-    /**
-     * 创建时间
-     */
+
     @Column(columnDefinition = " timestamp comment '创建时间'")
     private Date createTime;
-    /**
-     * 修改时间
-     */
+
     @Column(columnDefinition = " timestamp comment '修改时间'")
     private Date updateTime;
-    /**
-     * 是否有效,1有效，0无效
-     */
+
     @Column(columnDefinition = " smallint(5) comment '是否有效,1有效，0无效'")
     private Integer isUse;
-    /**
-     * 菜单描述
-     */
+
     @Column(columnDefinition = " varchar(255) comment '菜单描述'")
     private String description;
 
 
-    /**
-     * 菜单图标
-     */
+
     @Column(columnDefinition = " varchar(128) comment '菜单图标'")
     private String imageUrl;
 

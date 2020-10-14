@@ -1,10 +1,12 @@
 package com.zhiyu;
 
-import com.zhiyu.entity.pojo.SystemRole;
+import com.zhiyu.entity.pojo.SystemPermission;
+import com.zhiyu.repository.SystemPermissionRepository;
 import com.zhiyu.repository.SystemRoleRepository;
 import com.zhiyu.repository.SystemUserRepository;
 import com.zhiyu.repository.SystemUserRoleRepository;
 import com.zhiyu.utils.RedisUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author wengzhiyu
@@ -28,22 +32,19 @@ public class Test01 {
     @Autowired
     private SystemRoleRepository systemRoleRepository;
 
-
+    @Autowired
+    private SystemPermissionRepository systemPermissionRepository;
     @Autowired
     RedisUtil redisUtil;
 
     @Test
     public void test() {
-        SystemRole systemRole = new SystemRole();
-        systemRole.setRoleName("1111");
-        SystemRole systemRole1 = systemRoleRepository.save(systemRole);
-        System.out.println(systemRole1);
-
-
-
-
-          String a="1";
-
+        //List<SystemPermission> list = systemPermissionRepository.findAllByMenuId(3L);
+        List<Long> list=systemPermissionRepository.findAllByMenuId(1L).stream().map(SystemPermission::getId).collect(Collectors.toList());
+        if(!CollectionUtils.isEmpty(list)){
+            Long id=list.get(0);
+            System.out.println(id);
+        }
     }
 
 }

@@ -2,7 +2,6 @@ package com.zhiyu.entity.pojo;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +13,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "system_user_role")
-@DynamicUpdate
+@org.hibernate.annotations.Table(appliesTo = "system_user_role",comment="用户角色映射表")
 @DynamicInsert
 public class SystemUserRole implements Serializable {
 

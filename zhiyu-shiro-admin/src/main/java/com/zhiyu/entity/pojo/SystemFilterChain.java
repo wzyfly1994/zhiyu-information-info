@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @Table(name = "system_filter_chain")
+@org.hibernate.annotations.Table(appliesTo = "system_filter_chain",comment="shrio过滤链")
 @Entity
 @DynamicUpdate
 @DynamicInsert

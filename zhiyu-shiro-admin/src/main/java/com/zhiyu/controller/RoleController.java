@@ -1,14 +1,16 @@
 package com.zhiyu.controller;
 
+import com.zhiyu.entity.dto.SystemRoleDto;
+import com.zhiyu.service.SystemRoleService;
 import com.zhiyu.utils.ResponseData;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 /**
  * @author wengzhiyu
@@ -19,15 +21,25 @@ import javax.servlet.http.HttpServletResponse;
 @Api(tags = "角色模块")
 public class RoleController {
 
+    @Autowired
+    private SystemRoleService systemRoleService;
+
     @GetMapping("/welcome")
     public String welcome(HttpServletRequest request, HttpServletResponse response) {
         return "welcome";
     }
 
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
+
     @PostMapping("/addRole")
-    public ResponseData addRole() {
-        return ResponseData.success();
+    @ApiOperation("添加角色")
+    public ResponseData addRole(@RequestBody @Valid SystemRoleDto systemRoleDto) {
+        return systemRoleService.addRole(systemRoleDto);
     }
 
 

@@ -30,7 +30,6 @@ public class SystemRole implements Serializable {
     @Column(columnDefinition = "varchar(16) comment '角色名'")
     private String roleName;
 
-
     @Column(columnDefinition = "varchar(64) comment '角色值'")
     private String roleValue;
 

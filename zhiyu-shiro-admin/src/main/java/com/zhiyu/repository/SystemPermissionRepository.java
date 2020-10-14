@@ -1,7 +1,7 @@
 package com.zhiyu.repository;
 
-import com.zhiyu.repository.jpa.BaseJpaRepository;
 import com.zhiyu.entity.pojo.SystemPermission;
+import com.zhiyu.repository.jpa.BaseJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +20,13 @@ public interface SystemPermissionRepository extends BaseJpaRepository<SystemPerm
      * @return
      */
     List<SystemPermission> findAllByIdIn(List<Long> idList);
+
+    /**
+     * findAllByMenuId
+     *
+     * @param menuId
+     * @return
+     */
+    List<SystemPermission> findAllByMenuId(Long menuId);
+
 }

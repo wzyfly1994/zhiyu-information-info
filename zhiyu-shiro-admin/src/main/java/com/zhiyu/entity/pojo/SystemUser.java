@@ -15,6 +15,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "system_user")
+@org.hibernate.annotations.Table(appliesTo = "system_user",comment="用户表")
 @DynamicUpdate
 @DynamicInsert
 public class SystemUser  implements Serializable {

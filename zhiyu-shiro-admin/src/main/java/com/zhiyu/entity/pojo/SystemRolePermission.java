@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Data
 @Table(name = "system_role_permission")
 @Entity
+@org.hibernate.annotations.Table(appliesTo = "system_role_permission",comment="角色权限映射表")
 @DynamicUpdate
 @DynamicInsert
 public class SystemRolePermission  implements Serializable {
