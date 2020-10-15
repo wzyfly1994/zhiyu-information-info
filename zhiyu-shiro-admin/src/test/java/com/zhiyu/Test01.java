@@ -1,12 +1,9 @@
 package com.zhiyu;
 
-import com.zhiyu.entity.pojo.SystemPermission;
-import com.zhiyu.repository.SystemPermissionRepository;
-import com.zhiyu.repository.SystemRoleRepository;
-import com.zhiyu.repository.SystemUserRepository;
-import com.zhiyu.repository.SystemUserRoleRepository;
+import com.alibaba.fastjson.JSON;
+import com.zhiyu.repository.*;
 import com.zhiyu.utils.RedisUtil;
-import org.apache.commons.collections.CollectionUtils;
+import com.zhiyu.utils.tree.TreeUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author wengzhiyu
@@ -36,11 +31,15 @@ public class Test01 {
     @Autowired
     private SystemPermissionRepository systemPermissionRepository;
     @Autowired
+    private SystemDepartmentRepository systemDepartmentRepository;
+    @Autowired
     RedisUtil redisUtil;
 
     @Test
     public void test() {
-
+        List list = TreeUtil.listToTree(0L, systemDepartmentRepository.findAll());
+        System.out.println(list);
+        System.out.println(JSON.toJSONString(list));
     }
 
 }

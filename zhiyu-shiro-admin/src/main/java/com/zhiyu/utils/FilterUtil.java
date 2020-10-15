@@ -19,7 +19,7 @@ public class FilterUtil {
     public static void errorResponse(ServletResponse response) {
         try {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-            httpServletResponse.sendRedirect("/shiro-admin/user/loginError");
+            httpServletResponse.sendRedirect("/shiro-admin/system/loginError");
         } catch (IOException e) {
             log.error(e.getMessage());
         }

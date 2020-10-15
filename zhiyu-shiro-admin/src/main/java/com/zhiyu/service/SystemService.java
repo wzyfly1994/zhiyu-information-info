@@ -1,7 +1,5 @@
 package com.zhiyu.service;
 
-import com.zhiyu.entity.pojo.SystemRole;
-import com.zhiyu.entity.pojo.SystemUser;
 import com.zhiyu.entity.dto.SystemUserDto;
 import com.zhiyu.utils.ResponseData;
 
@@ -9,7 +7,7 @@ import com.zhiyu.utils.ResponseData;
  * @author wengzhiyu
  * @date 2019/01/07
  */
-public interface AboutUserService {
+public interface SystemService {
 
     /**
      * 登陆
@@ -28,7 +26,5 @@ public interface AboutUserService {
      */
     ResponseData signIn(SystemUserDto systemUserDto);
 
-
-    SystemRole queryUserRole(SystemUser user);
 
 }

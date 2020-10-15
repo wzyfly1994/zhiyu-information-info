@@ -3,12 +3,11 @@ package com.zhiyu.service.impl;
 import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.common.shiro.credentials.CustomCredentialsMatcher;
 import com.zhiyu.config.constant.Constants;
-import com.zhiyu.repository.SystemUserRepository;
-import com.zhiyu.entity.pojo.SystemRole;
-import com.zhiyu.entity.pojo.SystemUser;
 import com.zhiyu.entity.dto.SystemUserDto;
+import com.zhiyu.entity.pojo.SystemUser;
 import com.zhiyu.entity.vo.SystemUserVo;
-import com.zhiyu.service.AboutUserService;
+import com.zhiyu.repository.SystemUserRepository;
+import com.zhiyu.service.SystemService;
 import com.zhiyu.utils.JwtUtil;
 import com.zhiyu.utils.ResponseData;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +28,9 @@ import java.util.Optional;
  * @date 2020/01/08
  */
 @Service
-public class AboutUserServiceImpl implements AboutUserService {
+public class SystemServiceImpl implements SystemService {
+
+
 
     @Resource
     SystemUserRepository systemUserRepository;
@@ -78,9 +79,6 @@ public class AboutUserServiceImpl implements AboutUserService {
         return ResponseData.success();
     }
 
-    @Override
-    public SystemRole queryUserRole(SystemUser user) {
-        //userRoleRepository.fin
-        return null;
-    }
+
+
 }

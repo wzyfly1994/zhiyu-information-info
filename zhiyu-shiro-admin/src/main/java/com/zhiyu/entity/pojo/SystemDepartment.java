@@ -1,11 +1,13 @@
 package com.zhiyu.entity.pojo;
 
+import com.zhiyu.utils.tree.TreeEntity;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author wengzhiyu
@@ -17,7 +19,7 @@ import java.io.Serializable;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-public class SystemDepartment implements Serializable {
+public class SystemDepartment implements Serializable , TreeEntity<SystemDepartment> {
     private static final long serialVersionUID = 817685043788156509L;
 
     @Id
@@ -38,4 +40,7 @@ public class SystemDepartment implements Serializable {
 
     @Column(columnDefinition = " varchar(255) comment '组织描述'")
     private String description;
+
+    @Transient
+    List<SystemDepartment> childList;
 }

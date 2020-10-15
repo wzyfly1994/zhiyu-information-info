@@ -5,7 +5,7 @@ import com.zhiyu.common.shiro.filter.JwtFilter;
 import com.zhiyu.common.shiro.filter.ResultAdviceFilter;
 import com.zhiyu.common.shiro.filter.RoleAutoFilter;
 import com.zhiyu.common.shiro.realm.CustomRealm;
-import com.zhiyu.service.SystemInfoService;
+import com.zhiyu.service.SystemPermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
@@ -33,7 +33,7 @@ import java.util.Map;
 @Slf4j
 public class ShiroConfiguration {
     @Resource
-    private SystemInfoService systemInfoService;
+    private SystemPermissionService systemPermissionService;
 
 
     @Bean
@@ -132,16 +132,16 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 未授权的页面,如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setUnauthorizedUrl("/user/loginError");
-        shiroFilterFactoryBean.setLoginUrl("/user/loginError");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/system/loginError");
+        shiroFilterFactoryBean.setLoginUrl("/system/loginError");
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);
         filterMap.put("jwt", new JwtFilter());
         filterMap.put("role", new RoleAutoFilter());
         filterMap.put("result", new ResultAdviceFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
-        shiroFilterFactoryBean.setFilterChainDefinitions(systemInfoService.intiPermission());
-        log.info("加载shiro过滤链；[{}]",systemInfoService.intiPermission());
+        shiroFilterFactoryBean.setFilterChainDefinitions(systemPermissionService.intiPermission());
+        log.info("加载shiro过滤链；[{}]", systemPermissionService.intiPermission());
         return shiroFilterFactoryBean;
     }
 
