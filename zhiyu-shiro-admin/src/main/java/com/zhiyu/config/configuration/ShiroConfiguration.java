@@ -140,8 +140,8 @@ public class ShiroConfiguration {
         filterMap.put("role", new RoleAutoFilter());
         filterMap.put("result", new ResultAdviceFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
-        shiroFilterFactoryBean.setFilterChainDefinitions(systemPermissionService.intiPermission());
-        log.info("加载shiro过滤链；[{}]", systemPermissionService.intiPermission());
+        shiroFilterFactoryBean.setFilterChainDefinitions(systemPermissionService.intiFilterChain());
+        log.info("加载shiro过滤链；[{}]", systemPermissionService.intiFilterChain());
         return shiroFilterFactoryBean;
     }
 

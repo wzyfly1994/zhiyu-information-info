@@ -48,7 +48,7 @@ public class SystemController {
 
     @GetMapping("/permission/update")
     public ResponseData updatePermission() {
-        return ResponseData.success(systemPermissionService.updatePermission());
+        return ResponseData.success(systemPermissionService.updateFilterChain());
     }
 
     @GetMapping("/loginError")

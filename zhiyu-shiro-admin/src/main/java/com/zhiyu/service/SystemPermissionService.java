@@ -9,11 +9,11 @@ import java.util.Map;
 public interface SystemPermissionService {
 
     /**
-     * 初始化框架权限资源配置
+     * 初始化过滤链
      *
      * @return
      */
-    String intiPermission();
+    String intiFilterChain();
 
 
     /**
@@ -21,12 +21,12 @@ public interface SystemPermissionService {
      *
      * @return
      */
-    Map<String, String> initPermissionMap();
+    Map<String, String> initFilterChainMap();
 
     /**
      * 更新过滤链
      *
      * @return
      */
-    Map<String, String> updatePermission();
+    Map<String, String> updateFilterChain();
 }

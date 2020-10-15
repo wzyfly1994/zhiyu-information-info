@@ -33,17 +33,17 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
     private ShiroFilterFactoryBean shiroFilterFactoryBean;
 
     @Override
-    public String intiPermission() {
-        Map<String, String> permissionMap = initPermissionMap();
+    public String intiFilterChain() {
+        Map<String, String> filterChainMap = initFilterChainMap();
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> entry : permissionMap.entrySet()) {
+        for (Map.Entry<String, String> entry : filterChainMap.entrySet()) {
             sb.append(entry.getKey()).append("=").append(entry.getValue()).append("\r\n");
         }
         return sb.toString();
     }
 
     @Override
-    public Map<String, String> initPermissionMap() {
+    public Map<String, String> initFilterChainMap() {
         try {
             List<SystemFilterChain> shiroFilterChains = systemFilterChainRepository.findAll();
             Map<String, String> shiroFilterChainMap = new LinkedHashMap<>(shiroFilterChains.size());
@@ -60,8 +60,9 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
     }
 
     @Override
-    public Map<String, String> updatePermission() {
-        AbstractShiroFilter abstractShiroFilter = null;
+    @SuppressWarnings("all")
+    public Map<String, String> updateFilterChain() {
+        AbstractShiroFilter abstractShiroFilter;
         try {
             abstractShiroFilter = (AbstractShiroFilter) shiroFilterFactoryBean.getObject();
             // 获取过滤管理器
@@ -71,7 +72,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
             manager.getFilterChains().clear();
             shiroFilterFactoryBean.getFilterChainDefinitionMap().clear();
             // 生产新的过滤链
-            shiroFilterFactoryBean.setFilterChainDefinitionMap(initPermissionMap());
+            shiroFilterFactoryBean.setFilterChainDefinitionMap(initFilterChainMap());
             Map<String, String> chains = shiroFilterFactoryBean.getFilterChainDefinitionMap();
             for (Map.Entry<String, String> entry : chains.entrySet()) {
                 String url = entry.getKey();
