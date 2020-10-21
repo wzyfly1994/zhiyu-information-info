@@ -1,8 +1,9 @@
 package com.zhiyu.repository;
 
-import com.zhiyu.repository.jpa.BaseJpaRepository;
 import com.zhiyu.entity.pojo.SystemRolePermission;
+import com.zhiyu.repository.jpa.BaseJpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,4 +22,12 @@ public interface SystemRolePermissionRepository extends BaseJpaRepository<System
      * @return
      */
     List<SystemRolePermission> findAllByRoleIdIn(List<Long> roleList);
+
+    /**
+     * removeByRoleIdIn
+     *
+     * @param listRoleId
+     */
+    @Transactional(rollbackFor = Exception.class)
+    void deleteByRoleIdIn(List<Long> listRoleId);
 }

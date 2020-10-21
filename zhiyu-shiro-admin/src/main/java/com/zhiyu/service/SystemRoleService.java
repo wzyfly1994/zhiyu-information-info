@@ -17,4 +17,13 @@ public interface SystemRoleService {
      * @return
      */
     ResponseData addRole(SystemRoleDto systemRoleDto);
+
+
+    /**
+     * 修改角色
+     *
+     * @param systemRoleDto
+     * @return
+     */
+    ResponseData updateRole(SystemRoleDto systemRoleDto);
 }

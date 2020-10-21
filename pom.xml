@@ -30,7 +30,7 @@
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-collections4.version>4.1</commons-collections4.version>
         <fastjson.version>1.2.62</fastjson.version>
-        <hutool.version>5.1.0</hutool.version>
+        <hutool.version>5.4.5</hutool.version>
         <lombok.version>1.18.10</lombok.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <swagger2.version>2.9.2</swagger2.version>

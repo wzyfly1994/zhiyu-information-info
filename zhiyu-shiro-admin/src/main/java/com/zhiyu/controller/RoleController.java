@@ -43,4 +43,13 @@ public class RoleController {
     }
 
 
+    @PostMapping("/updateRole")
+    @ApiOperation("修改角色")
+    public ResponseData updateRole(@RequestBody @Valid SystemRoleDto systemRoleDto) {
+        if (systemRoleDto.getId() == null) {
+            return ResponseData.error("角色id不能为空");
+        }
+        return systemRoleService.updateRole(systemRoleDto);
+    }
+
 }

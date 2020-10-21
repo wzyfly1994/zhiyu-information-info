@@ -43,7 +43,7 @@ public class GlobalExceptionHandler implements ApplicationListener<ApplicationEv
     public Object handler(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getAllErrors().get(0).getDefaultMessage();
         log.error("异常", exception);
-        return ResponseData.error("参数验证异常 " + message);
+        return ResponseData.error("参数验证异常 :" + message);
     }
 
     /**

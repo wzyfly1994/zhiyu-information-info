@@ -1,5 +1,6 @@
 package com.zhiyu.service.impl;
 
+import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.entity.dto.SystemRoleDto;
 import com.zhiyu.entity.pojo.SystemPermission;
 import com.zhiyu.entity.pojo.SystemRole;
@@ -16,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +36,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Autowired
     private SystemPermissionRepository systemPermissionRepository;
 
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseData addRole(SystemRoleDto systemRoleDto) {
@@ -42,18 +46,51 @@ public class SystemRoleServiceImpl implements SystemRoleService {
         SystemRole roleMode = systemRoleRepository.save(systemRole);
         //菜单列表
         List<Long> menuIdList = systemRoleDto.getMenuIdList();
+        saveRolePermission(menuIdList, roleMode.getId());
+        return ResponseData.success("角色新增成功");
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseData updateRole(SystemRoleDto systemRoleDto) {
+        Long roleId = systemRoleDto.getId();
+        Optional<SystemRole> optionalSystemRole = systemRoleRepository.findById(roleId);
+        if (optionalSystemRole.isPresent()) {
+            SystemRole systemRole = optionalSystemRole.get();
+            BeanUtils.copyProperties(systemRoleDto, systemRole);
+            systemRole.setRecordDate(new Date());
+            List<Long> menuIdList = systemRoleDto.getMenuIdList();
+            if (!CollectionUtils.isEmpty(menuIdList)) {
+                systemRolePermissionRepository.deleteByRoleIdIn(menuIdList);
+                saveRolePermission(menuIdList, roleId);
+            }
+        } else {
+            return ResponseData.error("不存在此角色");
+        }
+        return ResponseData.success("角色修改成功");
+    }
+
+
+    private void saveRolePermission(List<Long> menuIdList, Long roleId) {
         if (!CollectionUtils.isEmpty(menuIdList)) {
             for (Long menuId : menuIdList) {
                 List<Long> permissionList = systemPermissionRepository.findAllByMenuId(menuId).stream().map(SystemPermission::getId).collect(Collectors.toList());
                 if (!CollectionUtils.isEmpty(permissionList)) {
                     Long permissionId = permissionList.get(0);
                     SystemRolePermission systemRolePermission = new SystemRolePermission();
-                    systemRolePermission.setRoleId(roleMode.getId());
+                    systemRolePermission.setRoleId(roleId);
                     systemRolePermission.setPermissionId(permissionId);
                     systemRolePermissionRepository.save(systemRolePermission);
+                } else {
+                    throw new BusinessException("至少有一条菜单权限不存在");
                 }
             }
         }
-        return ResponseData.success();
     }
+
+
 }
+
+
+
+

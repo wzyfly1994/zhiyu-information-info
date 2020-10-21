@@ -21,7 +21,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/system")
-@Api(tags = "系统模块")
+@Api(tags = "用户系统模块")
 public class SystemController {
 
     @Resource
@@ -46,6 +46,7 @@ public class SystemController {
         return systemService.signIn(systemUserDto);
     }
 
+    @ApiOperation("更新过滤链")
     @GetMapping("/permission/update")
     public ResponseData updatePermission() {
         return ResponseData.success(systemPermissionService.updateFilterChain());
