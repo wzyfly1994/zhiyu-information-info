@@ -1,5 +1,6 @@
 package com.zhiyu.entity.pojo;
 
+import com.zhiyu.utils.tree.TreeEntity;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author wengzhiyu
@@ -18,7 +20,7 @@ import java.util.Date;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-public class SystemMenu implements Serializable {
+public class SystemMenu implements Serializable, TreeEntity<SystemMenu> {
 
     private static final long serialVersionUID = -3470801336745091477L;
 
@@ -60,9 +62,10 @@ public class SystemMenu implements Serializable {
     @Column(columnDefinition = " varchar(255) comment '菜单描述'")
     private String description;
 
-
-
     @Column(columnDefinition = " varchar(128) comment '菜单图标'")
     private String imageUrl;
+
+    @Transient
+    List<SystemMenu> childList;
 
 }

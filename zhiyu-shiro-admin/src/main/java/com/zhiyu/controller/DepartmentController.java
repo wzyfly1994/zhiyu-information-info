@@ -22,7 +22,7 @@ public class DepartmentController {
     @Resource
     private SystemDepartmentRepository systemDepartmentRepository;
 
-    @GetMapping("/depTree")
+    @GetMapping("/tree")
     @ApiOperation("组织架构树")
     public ResponseData depTree() {
         return ResponseData.success(TreeUtil.listToTree(0L, systemDepartmentRepository.findAll()));

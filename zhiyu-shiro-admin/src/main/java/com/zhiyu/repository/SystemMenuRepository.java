@@ -1,8 +1,10 @@
 package com.zhiyu.repository;
 
-import com.zhiyu.repository.jpa.BaseJpaRepository;
 import com.zhiyu.entity.pojo.SystemMenu;
+import com.zhiyu.repository.jpa.BaseJpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author wengzhiyu
@@ -10,4 +12,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SystemMenuRepository extends BaseJpaRepository<SystemMenu, Long> {
+
+
+    /**
+     * findAllByOrOrderBySerialNumAsc
+     *
+     * @return
+     */
+    List<SystemMenu>   findAllByOrderBySerialNumAsc();
 }

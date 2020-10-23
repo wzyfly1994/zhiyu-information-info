@@ -6,9 +6,6 @@ import com.zhiyu.service.SystemService;
 import com.zhiyu.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,10 +25,6 @@ public class SystemController {
     private SystemService systemService;
     @Resource
     private SystemPermissionService systemPermissionService;
-    @Autowired
-    @Lazy
-    private ShiroFilterFactoryBean shiroFilterFactoryBean;
-
 
     @PostMapping("/login")
     @ApiOperation("登陆")
