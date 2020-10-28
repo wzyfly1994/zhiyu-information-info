@@ -1,6 +1,5 @@
 package com.zhiyu.entity.pojo;
 
-import com.zhiyu.utils.tree.TreeEntity;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -8,7 +7,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author wengzhiyu
@@ -20,7 +18,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-public class SystemMenu implements Serializable, TreeEntity<SystemMenu> {
+public class SystemMenu implements Serializable {
 
     private static final long serialVersionUID = -3470801336745091477L;
 
@@ -41,9 +39,6 @@ public class SystemMenu implements Serializable, TreeEntity<SystemMenu> {
     @Column(columnDefinition = " int(11) comment '父节点ID'")
     private Long parentId;
 
-    @Column(columnDefinition = " varchar(255) comment '重定向URL'")
-    private String redirectUrl;
-
     @Column(columnDefinition = " varchar(255) comment '过滤URL'")
     private String filterUrl;
 
@@ -56,16 +51,13 @@ public class SystemMenu implements Serializable, TreeEntity<SystemMenu> {
     @Column(columnDefinition = " timestamp comment '修改时间'")
     private Date updateTime;
 
-    @Column(columnDefinition = " smallint(5) comment '是否有效,1有效，0无效'")
-    private Integer isUse;
+    @Column(columnDefinition = " tinyint(1) comment '是否有效,1有效，0无效'")
+    private Boolean isUse;
 
     @Column(columnDefinition = " varchar(255) comment '菜单描述'")
     private String description;
 
     @Column(columnDefinition = " varchar(128) comment '菜单图标'")
     private String imageUrl;
-
-    @Transient
-    List<SystemMenu> childList;
 
 }

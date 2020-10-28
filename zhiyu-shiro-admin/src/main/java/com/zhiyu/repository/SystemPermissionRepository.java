@@ -29,4 +29,13 @@ public interface SystemPermissionRepository extends BaseJpaRepository<SystemPerm
      */
     List<SystemPermission> findAllByMenuId(Long menuId);
 
+
+    /**
+     * countByMenuId
+     *
+     * @param menuId
+     * @return
+     */
+    Long countByMenuId(Long menuId);
+
 }

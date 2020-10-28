@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author wengzhiyu
@@ -34,14 +32,13 @@ public class Test01 {
     @Autowired
     private SystemRolePermissionRepository systemRolePermissionRepository;
     @Autowired
+    private SystemMenuRepository systemMenuRepository;
+    @Autowired
     RedisUtil redisUtil;
 
     @Test
     public void test() {
-        List<Long> list=new ArrayList<>(16);
-        list.add(1L);
-        list.add(2L);
-        systemRolePermissionRepository.deleteByRoleIdIn(list);
+        System.out.println( systemMenuRepository.findById(1L).get());
     }
 
 }

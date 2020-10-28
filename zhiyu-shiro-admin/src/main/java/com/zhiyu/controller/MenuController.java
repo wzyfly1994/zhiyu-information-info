@@ -1,14 +1,12 @@
 package com.zhiyu.controller;
 
-import com.zhiyu.repository.SystemMenuRepository;
+import com.zhiyu.entity.dto.MenuDto;
+import com.zhiyu.service.SystemMenuService;
 import com.zhiyu.utils.ResponseData;
-import com.zhiyu.utils.tree.TreeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wengzhiyu
@@ -20,18 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuController {
 
     @Autowired
-    private SystemMenuRepository systemMenuRepository;
+    private SystemMenuService systemMenuService;
 
     @GetMapping("/tree")
     @ApiOperation("菜单树")
     public ResponseData menuTree() {
-        return ResponseData.success(TreeUtil.listToTree(0L, systemMenuRepository.findAllByOrderBySerialNumAsc()));
+        return systemMenuService.menuTree();
     }
 
-    @GetMapping("/addTree")
-    @ApiOperation("菜单树")
-    public ResponseData addMenu() {
-        return null;
+    @PostMapping("/saveUpdate")
+    @ApiOperation("添加菜单")
+    public ResponseData saveUpdate(@RequestBody MenuDto menuDto) {
+        return systemMenuService.saveUpdate(menuDto);
     }
 
 
