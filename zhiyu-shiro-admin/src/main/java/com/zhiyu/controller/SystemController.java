@@ -1,6 +1,7 @@
 package com.zhiyu.controller;
 
 import com.zhiyu.entity.dto.SystemUserDto;
+import com.zhiyu.service.DictionaryService;
 import com.zhiyu.service.SystemPermissionService;
 import com.zhiyu.service.SystemService;
 import com.zhiyu.utils.ResponseData;
@@ -25,6 +26,8 @@ public class SystemController {
     private SystemService systemService;
     @Resource
     private SystemPermissionService systemPermissionService;
+    @Resource
+    private DictionaryService dictionaryService;
 
     @PostMapping("/login")
     @ApiOperation("登陆")
@@ -43,6 +46,13 @@ public class SystemController {
     @GetMapping("/permission/update")
     public ResponseData updatePermission() {
         return ResponseData.success(systemPermissionService.updateFilterChain());
+    }
+
+
+    @GetMapping("queryDictionary")
+    @ApiOperation(value = "下拉字典查询")
+    public ResponseData queryDictionary(String selectName) {
+        return ResponseData.success(dictionaryService.loadKevValueManage(selectName));
     }
 
     @GetMapping("/loginError")

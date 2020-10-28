@@ -1,7 +1,7 @@
 package com.zhiyu.service.impl;
 
 import com.zhiyu.common.exception.BusinessException;
-import com.zhiyu.entity.pojo.SystemFilterChain;
+import com.zhiyu.entity.pojo.system.SystemFilterChain;
 import com.zhiyu.repository.SystemFilterChainRepository;
 import com.zhiyu.service.SystemPermissionService;
 import lombok.extern.slf4j.Slf4j;

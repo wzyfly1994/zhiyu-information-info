@@ -1,6 +1,6 @@
 package com.zhiyu.repository;
 
-import com.zhiyu.entity.pojo.SystemPermission;
+import com.zhiyu.entity.pojo.system.SystemPermission;
 import com.zhiyu.repository.jpa.BaseJpaRepository;
 import org.springframework.stereotype.Repository;
 

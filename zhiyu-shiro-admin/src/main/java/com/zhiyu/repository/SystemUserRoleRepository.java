@@ -1,7 +1,7 @@
 package com.zhiyu.repository;
 
 import com.zhiyu.repository.jpa.BaseJpaRepository;
-import com.zhiyu.entity.pojo.SystemUserRole;
+import com.zhiyu.entity.pojo.system.SystemUserRole;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

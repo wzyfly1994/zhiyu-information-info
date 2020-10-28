@@ -1,6 +1,6 @@
 package com.zhiyu.repository;
 
-import com.zhiyu.entity.pojo.SystemRolePermission;
+import com.zhiyu.entity.pojo.system.SystemRolePermission;
 import com.zhiyu.repository.jpa.BaseJpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

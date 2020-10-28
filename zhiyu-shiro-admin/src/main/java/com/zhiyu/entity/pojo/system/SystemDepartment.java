@@ -1,4 +1,4 @@
-package com.zhiyu.entity.pojo;
+package com.zhiyu.entity.pojo.system;
 
 import com.zhiyu.utils.tree.TreeEntity;
 import lombok.Data;

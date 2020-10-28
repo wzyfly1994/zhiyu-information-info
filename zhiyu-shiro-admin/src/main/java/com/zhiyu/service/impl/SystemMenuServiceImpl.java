@@ -2,8 +2,8 @@ package com.zhiyu.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.zhiyu.entity.dto.MenuDto;
-import com.zhiyu.entity.pojo.SystemMenu;
-import com.zhiyu.entity.pojo.SystemPermission;
+import com.zhiyu.entity.pojo.system.SystemMenu;
+import com.zhiyu.entity.pojo.system.SystemPermission;
 import com.zhiyu.entity.vo.SystemMenuVo;
 import com.zhiyu.repository.SystemMenuRepository;
 import com.zhiyu.repository.SystemPermissionRepository;

@@ -1,7 +1,7 @@
 package com.zhiyu.repository;
 
 import com.zhiyu.repository.jpa.BaseJpaRepository;
-import com.zhiyu.entity.pojo.SystemUser;
+import com.zhiyu.entity.pojo.system.SystemUser;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

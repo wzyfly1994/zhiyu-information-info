@@ -1,6 +1,6 @@
 package com.zhiyu.common.shiro.realm;
 
-import com.zhiyu.entity.pojo.*;
+import com.zhiyu.entity.pojo.system.*;
 import com.zhiyu.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;

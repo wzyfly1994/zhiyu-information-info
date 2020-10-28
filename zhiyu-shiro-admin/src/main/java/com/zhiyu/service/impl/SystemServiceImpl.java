@@ -4,7 +4,7 @@ import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.common.shiro.credentials.CustomCredentialsMatcher;
 import com.zhiyu.config.constant.Constants;
 import com.zhiyu.entity.dto.SystemUserDto;
-import com.zhiyu.entity.pojo.SystemUser;
+import com.zhiyu.entity.pojo.system.SystemUser;
 import com.zhiyu.entity.vo.SystemUserVo;
 import com.zhiyu.repository.SystemUserRepository;
 import com.zhiyu.service.SystemService;

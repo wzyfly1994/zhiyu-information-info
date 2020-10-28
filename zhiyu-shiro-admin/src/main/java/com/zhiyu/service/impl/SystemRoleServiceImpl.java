@@ -2,9 +2,9 @@ package com.zhiyu.service.impl;
 
 import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.entity.dto.SystemRoleDto;
-import com.zhiyu.entity.pojo.SystemPermission;
-import com.zhiyu.entity.pojo.SystemRole;
-import com.zhiyu.entity.pojo.SystemRolePermission;
+import com.zhiyu.entity.pojo.system.SystemPermission;
+import com.zhiyu.entity.pojo.system.SystemRole;
+import com.zhiyu.entity.pojo.system.SystemRolePermission;
 import com.zhiyu.repository.SystemPermissionRepository;
 import com.zhiyu.repository.SystemRolePermissionRepository;
 import com.zhiyu.repository.SystemRoleRepository;

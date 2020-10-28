@@ -1,6 +1,6 @@
 package com.zhiyu.repository;
 
-import com.zhiyu.entity.pojo.SystemDepartment;
+import com.zhiyu.entity.pojo.system.SystemDepartment;
 import com.zhiyu.repository.jpa.BaseJpaRepository;
 import org.springframework.stereotype.Repository;
 
