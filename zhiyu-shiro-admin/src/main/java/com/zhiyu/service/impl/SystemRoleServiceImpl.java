@@ -1,6 +1,7 @@
 package com.zhiyu.service.impl;
 
 import com.zhiyu.common.exception.BusinessException;
+import com.zhiyu.config.constant.BCErrorCode;
 import com.zhiyu.entity.dto.SystemRoleDto;
 import com.zhiyu.entity.pojo.system.SystemPermission;
 import com.zhiyu.entity.pojo.system.SystemRole;
@@ -40,6 +41,9 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseData addRole(SystemRoleDto systemRoleDto) {
+        if (systemRoleDto == null) {
+            return ResponseData.error(BCErrorCode.DATA_NOT_NULL.getMsg());
+        }
         SystemRole systemRole = new SystemRole();
         BeanUtils.copyProperties(systemRoleDto, systemRole);
         systemRole.setRoleValue(RandomStringUtils.randomAlphanumeric(32));
@@ -53,6 +57,9 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseData updateRole(SystemRoleDto systemRoleDto) {
+        if (systemRoleDto == null) {
+            return ResponseData.error(BCErrorCode.DATA_NOT_NULL.getMsg());
+        }
         Long roleId = systemRoleDto.getId();
         Optional<SystemRole> optionalSystemRole = systemRoleRepository.findById(roleId);
         if (optionalSystemRole.isPresent()) {

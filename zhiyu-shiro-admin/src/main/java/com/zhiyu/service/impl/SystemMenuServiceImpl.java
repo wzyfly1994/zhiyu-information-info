@@ -1,6 +1,7 @@
 package com.zhiyu.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.zhiyu.config.constant.BCErrorCode;
 import com.zhiyu.entity.dto.MenuDto;
 import com.zhiyu.entity.pojo.system.SystemMenu;
 import com.zhiyu.entity.pojo.system.SystemPermission;
@@ -48,7 +49,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Transactional(rollbackFor = Exception.class)
     public ResponseData saveUpdate(MenuDto menuDto) {
         if (menuDto == null) {
-            return ResponseData.error("参数不能为空");
+            return ResponseData.error(BCErrorCode.DATA_NOT_NULL.getMsg());
         }
         Long menuId = menuDto.getId();
         String permissionValue = RandomStringUtils.randomAlphanumeric(32);

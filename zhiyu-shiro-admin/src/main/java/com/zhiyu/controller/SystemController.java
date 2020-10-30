@@ -1,6 +1,8 @@
 package com.zhiyu.controller;
 
-import com.zhiyu.entity.dto.SystemUserDto;
+import com.zhiyu.entity.dto.SystemUserAddDto;
+import com.zhiyu.entity.dto.SystemUserLoginDto;
+import com.zhiyu.entity.dto.SystemUserUpdateDto;
 import com.zhiyu.service.DictionaryService;
 import com.zhiyu.service.SystemPermissionService;
 import com.zhiyu.service.SystemService;
@@ -31,15 +33,21 @@ public class SystemController {
 
     @PostMapping("/login")
     @ApiOperation("登陆")
-    public ResponseData login(@RequestBody @Valid SystemUserDto systemUserDto) {
-        return systemService.userLogin(systemUserDto);
+    public ResponseData login(@RequestBody @Valid SystemUserLoginDto systemUserLoginDto) {
+        return systemService.userLogin(systemUserLoginDto);
     }
 
 
-    @PostMapping("/signIn")
-    @ApiOperation("注册")
-    public ResponseData signIn(@RequestBody @Valid SystemUserDto systemUserDto) {
-        return systemService.signIn(systemUserDto);
+    @PostMapping("/addUser")
+    @ApiOperation("添加用户")
+    public ResponseData addUser(@RequestBody @Valid SystemUserAddDto systemUserAddDto) {
+        return systemService.addUser(systemUserAddDto);
+    }
+
+    @PostMapping("/updateUser")
+    @ApiOperation("添加用户")
+    public ResponseData updateUser(@RequestBody @Valid SystemUserUpdateDto systemUserUpdateDto) {
+        return systemService.updateUser(systemUserUpdateDto);
     }
 
     @ApiOperation("更新过滤链")

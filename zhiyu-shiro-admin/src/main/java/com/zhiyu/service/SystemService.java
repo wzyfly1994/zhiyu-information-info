@@ -1,6 +1,8 @@
 package com.zhiyu.service;
 
-import com.zhiyu.entity.dto.SystemUserDto;
+import com.zhiyu.entity.dto.SystemUserAddDto;
+import com.zhiyu.entity.dto.SystemUserLoginDto;
+import com.zhiyu.entity.dto.SystemUserUpdateDto;
 import com.zhiyu.utils.ResponseData;
 
 /**
@@ -12,19 +14,26 @@ public interface SystemService {
     /**
      * 登陆
      *
-     * @param systemUserDto
+     * @param systemUserLoginDto
      * @return
      */
-    ResponseData userLogin(SystemUserDto systemUserDto);
+    ResponseData userLogin(SystemUserLoginDto systemUserLoginDto);
 
 
     /**
-     * 注册
+     * 添加用户
      *
-     * @param systemUserDto
+     * @param systemUserAddDto
      * @return
      */
-    ResponseData signIn(SystemUserDto systemUserDto);
+    ResponseData addUser(SystemUserAddDto systemUserAddDto);
 
 
+    /**
+     * 修改用户
+     *
+     * @param systemUserUpdateDto
+     * @return
+     */
+    ResponseData updateUser(SystemUserUpdateDto systemUserUpdateDto);
 }

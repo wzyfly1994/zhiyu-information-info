@@ -38,7 +38,7 @@ public class Test01 {
 
     @Test
     public void test() {
-        System.out.println( systemMenuRepository.findById(1L).get());
+        System.out.println( systemUserRepository.findAllByIdNot(1L) );
     }
 
 }
