@@ -54,8 +54,8 @@ public class SystemServiceImpl implements SystemService {
                     CustomCredentialsMatcher.encrypt(systemUserLoginDto.getPassword(), systemUserLoginDto.getAccount()));
             //运行这个才会执行CustomRealm
             subject.login(token);
-            //生成token
-            Map<String, Object> objectMap = new HashMap<>(8);
+            //生成tokens
+            Map<String, Object> objectMap = new HashMap<>(2);
             objectMap.put("account", systemUserLoginDto.getAccount());
             objectMap.put("timestamp", System.currentTimeMillis());
             String jwtToken = JwtUtil.getToken(objectMap);

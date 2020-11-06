@@ -1,5 +1,6 @@
 package com.zhiyu.controller;
 
+import com.zhiyu.config.constant.BCErrorCode;
 import com.zhiyu.entity.dto.SystemUserAddDto;
 import com.zhiyu.entity.dto.SystemUserLoginDto;
 import com.zhiyu.entity.dto.SystemUserUpdateDto;
@@ -9,6 +10,7 @@ import com.zhiyu.service.SystemService;
 import com.zhiyu.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -35,6 +37,13 @@ public class SystemController {
     @ApiOperation("登陆")
     public ResponseData login(@RequestBody @Valid SystemUserLoginDto systemUserLoginDto) {
         return systemService.userLogin(systemUserLoginDto);
+    }
+
+    @PostMapping("/logout")
+    @ApiOperation("退出登陆")
+    public ResponseData logout() {
+        SecurityUtils.getSubject().logout();
+        return ResponseData.success("退出登陆成功");
     }
 
 
@@ -65,7 +74,9 @@ public class SystemController {
 
     @GetMapping("/loginError")
     public ResponseData error() {
-        return ResponseData.error("用户未授权");
+        return ResponseData.error(BCErrorCode.PARAMS_VALIDATE_ERROR.getCode(),
+                BCErrorCode.PARAMS_VALIDATE_ERROR.getMsg(),
+                null);
     }
 
 }

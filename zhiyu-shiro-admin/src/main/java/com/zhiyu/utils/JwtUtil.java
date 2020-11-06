@@ -1,8 +1,10 @@
 package com.zhiyu.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.config.constant.Constants;
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.Map;
  * @author wzy
  * @date 2019/11/1
  */
+@Slf4j
 public class JwtUtil {
 
     private static Date getExpireTime() {
@@ -31,7 +34,7 @@ public class JwtUtil {
     }
 
     public static JSONObject validateToken(String token) {
-        token=token.replace(Constants.TOKEN_PREFIX,"");
+        token = token.replace(Constants.TOKEN_PREFIX, "");
         JSONObject jsonObject = new JSONObject();
         boolean code = true;
         String msg = "";
@@ -64,12 +67,13 @@ public class JwtUtil {
     }
 
     public static Claims getClaims(String token) {
-        Claims claims = null;
+        Claims claims;
         try {
             claims = Jwts.parser().setSigningKey(Constants.JWT_SECRET_KEY).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             // token错误
-            e.printStackTrace();
+            log.info("token解析失败:原因:[{}]", e.getMessage());
+            throw new BusinessException("token解析失败");
         }
         return claims;
     }

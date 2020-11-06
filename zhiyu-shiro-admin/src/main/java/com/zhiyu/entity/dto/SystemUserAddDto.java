@@ -43,6 +43,10 @@ public class SystemUserAddDto implements Serializable {
     @NotBlank(message = "手机号不能为空")
     private String phone;
 
+    @ApiModelProperty(value = "最大登录数", example = "1")
+    @NotNull(message = "最大登录数不能为空")
+    private Integer maxSession;
+
     @ApiModelProperty(value = "角色列表", example = "[1]")
     @NotEmpty(message = "角色列表不能为空")
     private List<Long> roleList;

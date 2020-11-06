@@ -4,6 +4,8 @@ import com.zhiyu.repository.*;
 import com.zhiyu.utils.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -35,10 +37,23 @@ public class Test01 {
     private SystemMenuRepository systemMenuRepository;
     @Autowired
     RedisUtil redisUtil;
+    @Resource
+    private RedissonClient redissonClient;
 
     @Test
     public void test() {
-        System.out.println( systemUserRepository.findAllByIdNot(1L) );
+//        RDeque<String> deque = redissonClient.getDeque("ABC");
+//        deque.push("A");
+//        deque.push("B");
+//        deque.removeLast();
+//        System.out.println(deque.size());
+//        RBucket<String> bucket = redissonClient.getBucket("BBB");
+//        bucket.set("CC");
+//        bucket.set("CC");
+String aa="5";
+        RLock rLock = redissonClient.getLock("33333");
+        rLock.lock();
+        rLock.unlock();
     }
 
 }

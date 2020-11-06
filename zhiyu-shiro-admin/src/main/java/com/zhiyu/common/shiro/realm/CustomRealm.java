@@ -1,14 +1,17 @@
 package com.zhiyu.common.shiro.realm;
 
+import com.zhiyu.config.constant.Constants;
 import com.zhiyu.entity.pojo.system.*;
 import com.zhiyu.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.data.domain.Example;
@@ -73,8 +76,8 @@ public class CustomRealm extends AuthorizingRealm {
             List<Long> userPermission = systemRolePermissionRepository.findAllByRoleIdIn(listRoleId).stream().map(SystemRolePermission::getPermissionId).collect(Collectors.toList());
             permissionList.addAll(systemPermissionRepository.findAllByIdIn(userPermission).stream().map(SystemPermission::getPermissionValue).collect(Collectors.toList()));
         }
-        log.info("当前角色拥有的角色列表：[{}]",roleList);
-        log.info("当前角色拥有的权限列表：[{}]",permissionList);
+        log.info("当前角色拥有的角色列表：[{}]", roleList);
+        log.info("当前角色拥有的权限列表：[{}]", permissionList);
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.addRoles(roleList);
@@ -83,6 +86,7 @@ public class CustomRealm extends AuthorizingRealm {
     }
 
     /**
+     * subject.login 会调用此方法
      * 获取身份验证信息
      * Shiro中，最终是通过 Realm 来获取应用程序中的用户、角色及权限信息的。
      *
@@ -109,6 +113,8 @@ public class CustomRealm extends AuthorizingRealm {
             throw new UnknownAccountException("用户未启用");
         }
         String account = user.getAccount();
+        Session session = SecurityUtils.getSubject().getSession();
+        session.setAttribute(Constants.LOGIN_USER + account, user);
         //ByteSource.Util.bytes(account) 为加盐值
         return new SimpleAuthenticationInfo(account, user.getPassWord(), ByteSource.Util.bytes(account), getName());
     }

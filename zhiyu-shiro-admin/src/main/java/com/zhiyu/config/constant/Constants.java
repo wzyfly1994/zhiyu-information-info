@@ -34,7 +34,18 @@ public class Constants {
     /**
      * 后台登录用户
      */
-    public static final String LOGIN_USER = "login_user";
+    public static final String LOGIN_USER = "login_user:";
+
+
+    /**
+     * 并发登陆
+     */
+    public static final String KICK_OUT_LOGIN = "kick_out_login:";
+
+    /**
+     * 登陆用户分布式锁
+     */
+    public static final String LOGIN_LOCK = "login_lock:";
 
     /**
      * 返回登录令牌

@@ -2,6 +2,7 @@ package com.zhiyu.config.configuration;
 
 import com.zhiyu.common.shiro.credentials.CustomCredentialsMatcher;
 import com.zhiyu.common.shiro.filter.JwtFilter;
+import com.zhiyu.common.shiro.filter.KickOutFilter;
 import com.zhiyu.common.shiro.filter.ResultAdviceFilter;
 import com.zhiyu.common.shiro.filter.RoleAutoFilter;
 import com.zhiyu.common.shiro.realm.CustomRealm;
@@ -14,7 +15,8 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.redisson.api.RedissonClient;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -79,7 +81,7 @@ public class ShiroConfiguration {
 
     @Bean
     public SessionManager sessionManager() {
-        return new ServletContainerSessionManager();
+        return new DefaultWebSessionManager();
     }
 
     @Bean
@@ -98,7 +100,7 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(CustomCredentialsMatcher customCredentialsMatcher) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm(customCredentialsMatcher));
-        securityManager.setSessionManager(sessionManager());
+        // securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
@@ -128,7 +130,7 @@ public class ShiroConfiguration {
      * @return
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager, KickOutFilter kickOutFilter) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 未授权的页面,如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
@@ -137,6 +139,7 @@ public class ShiroConfiguration {
         //添加自己的过滤器
         Map<String, Filter> filterMap = new HashMap<>(4);
         filterMap.put("jwt", new JwtFilter());
+        filterMap.put("kickout", kickOutFilter);
         filterMap.put("role", new RoleAutoFilter());
         filterMap.put("result", new ResultAdviceFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
@@ -157,6 +160,21 @@ public class ShiroConfiguration {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
+     * 初始化并发控制拦截器
+     *
+     * @param sessionManager
+     * @param redissonClient
+     * @return
+     */
+    @Bean
+    public KickOutFilter kickOutFilterInit(SessionManager sessionManager, RedissonClient redissonClient) {
+        KickOutFilter kickOutFilter = new KickOutFilter();
+        kickOutFilter.setSessionManager(sessionManager);
+        kickOutFilter.setRedissonClient(redissonClient);
+        return kickOutFilter;
     }
 
 

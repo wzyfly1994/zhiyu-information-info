@@ -59,6 +59,9 @@ public class SystemUser  implements Serializable {
     @Column(columnDefinition = " tinyint(1) comment '是否删除，1：是，0：否'")
     private Boolean isDelete;
 
+    @Column(columnDefinition = " smallint(5) comment '最大登录数'")
+    private Integer maxSession;
+
     @Column(columnDefinition = " timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录时间'")
     private Date recordDate;
 }
