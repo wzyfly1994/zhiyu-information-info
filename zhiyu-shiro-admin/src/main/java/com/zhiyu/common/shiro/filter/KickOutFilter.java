@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.redisson.api.RBucket;
@@ -37,8 +36,6 @@ import java.util.concurrent.TimeUnit;
 public class KickOutFilter extends AccessControlFilter {
 
     private RedissonClient redissonClient;
-
-    private SessionManager sessionManager;
 
 
     /**

@@ -165,14 +165,12 @@ public class ShiroConfiguration {
     /**
      * 初始化并发控制拦截器
      *
-     * @param sessionManager
      * @param redissonClient
      * @return
      */
     @Bean
-    public KickOutFilter kickOutFilterInit(SessionManager sessionManager, RedissonClient redissonClient) {
+    public KickOutFilter kickOutFilterInit(RedissonClient redissonClient) {
         KickOutFilter kickOutFilter = new KickOutFilter();
-        kickOutFilter.setSessionManager(sessionManager);
         kickOutFilter.setRedissonClient(redissonClient);
         return kickOutFilter;
     }
