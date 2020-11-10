@@ -5,6 +5,9 @@ import com.zhiyu.config.constant.Constants;
 import com.zhiyu.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.SessionKey;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 
 /**
  * @author wengzhiyu
@@ -24,6 +28,9 @@ public class TestController {
 
     @Resource
     private RedisUtil redisUtil;
+
+    @Resource
+    private SessionManager sessionManager;
 
     @GetMapping("/setSession/{value}")
     public String setSession(@PathVariable String value, HttpServletRequest httpServletRequest) {
@@ -67,7 +74,7 @@ public class TestController {
     public String getSubjectSession(@PathVariable String value) {
         String result;
         try {
-            result = "SubjectSession:" + SecurityUtils.getSubject().getSession().getAttribute(Constants.LOGIN_USER + value);
+           result = "SubjectSession:" + SecurityUtils.getSubject().getSession().getId();
         } catch (Exception e) {
             result = "SubjectSession读取失败:" + e.getMessage();
         }
@@ -77,6 +84,18 @@ public class TestController {
     @GetMapping("/hello")
     public String hello() {
         return "hello";
+    }
+
+
+    @GetMapping("/getSubjectSessionId/{sessionId}")
+    public Session getSessionById(@PathVariable  String sessionId){
+        SessionKey sessionKey = new SessionKey() {
+            @Override
+            public Serializable getSessionId() {
+                return sessionId;
+            }
+        };
+        return sessionManager.getSession(sessionKey);
     }
 
 }

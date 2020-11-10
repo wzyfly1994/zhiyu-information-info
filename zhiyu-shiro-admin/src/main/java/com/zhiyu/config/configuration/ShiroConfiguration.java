@@ -15,7 +15,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.redisson.api.RedissonClient;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -81,7 +81,7 @@ public class ShiroConfiguration {
 
     @Bean
     public SessionManager sessionManager() {
-        return new DefaultWebSessionManager();
+        return new ServletContainerSessionManager();
     }
 
     @Bean
@@ -100,7 +100,7 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(CustomCredentialsMatcher customCredentialsMatcher) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm(customCredentialsMatcher));
-        // securityManager.setSessionManager(sessionManager());
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 

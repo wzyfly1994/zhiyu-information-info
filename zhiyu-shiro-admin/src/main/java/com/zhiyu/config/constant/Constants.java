@@ -38,9 +38,15 @@ public class Constants {
 
 
     /**
-     * 并发登陆
+     * 并发控制key
      */
     public static final String KICK_OUT_LOGIN = "kick_out_login:";
+
+    /**
+     * 并发登陆key
+     */
+    public static final String KICK_OUT_SIGN= "kick_out_sign:";
+
 
     /**
      * 登陆用户分布式锁

@@ -3,6 +3,7 @@ package com.zhiyu.common.shiro.filter;
 import com.zhiyu.config.constant.BCErrorCode;
 import com.zhiyu.config.constant.Constants;
 import com.zhiyu.entity.pojo.system.SystemUser;
+import com.zhiyu.entity.vo.KickoutUserVo;
 import com.zhiyu.utils.JwtUtil;
 import com.zhiyu.utils.ResponseUtil;
 import io.jsonwebtoken.Claims;
@@ -11,11 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.session.SessionException;
-import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.redisson.api.RBucket;
 import org.redisson.api.RDeque;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -101,15 +101,23 @@ public class KickOutFilter extends AccessControlFilter {
             String sessionId = (String) session.getId();
             String lockKey = Constants.LOGIN_LOCK + account;
             String kickOutKey = Constants.KICK_OUT_LOGIN + account;
-            String kickoutSessionKey = "kickout:";
-            RLock rLock = redissonClient.getLock(lockKey);
+            String kickOutSign = Constants.KICK_OUT_SIGN + account + ":";
+            //加入RBucket
+            RBucket<KickoutUserVo> rBucket = redissonClient.getBucket(kickOutSign + sessionId);
+            if (!rBucket.isExists()) {
+                KickoutUserVo kickoutUserVo = new KickoutUserVo();
+                kickoutUserVo.setSessionId(sessionId);
+                rBucket.set(kickoutUserVo, maxTime, TimeUnit.MILLISECONDS);
+            }
+            KickoutUserVo kickoutUserDt = rBucket.get();
             Integer maxSession = systemUser.getMaxSession();
+            RLock rLock = redissonClient.getLock(lockKey);
             rLock.lock();
             String removeSessionId = null;
             try {
                 RDeque<String> deque = redissonClient.getDeque(kickOutKey);
                 // 如果队列中没有放入队列
-                if (!deque.contains(sessionId)) {
+                if (!deque.contains(sessionId) && !kickoutUserDt.isKickout()) {
                     deque.push(sessionId);
                 }
                 if (deque.size() != 0 && deque.size() > maxSession) {
@@ -121,24 +129,27 @@ public class KickOutFilter extends AccessControlFilter {
                 ResponseUtil.setResponse(response, BCErrorCode.ERROR.getCode(), BCErrorCode.ERROR.getMsg(), null);
                 return false;
             } finally {
-                rLock.unlock();
+                if (rLock.isLocked()) {
+                    if (rLock.isHeldByCurrentThread()) {
+                        rLock.unlock();
+                    }
+                }
             }
-            //将要被提出的sessionId标记
+            //标记要提出的对象
             if (removeSessionId != null) {
-                Session kickoutSession = null;
-                try {
-                    kickoutSession = sessionManager.getSession(new DefaultSessionKey(removeSessionId));
-                } catch (SessionException e) {
-
+                RBucket<KickoutUserVo> removeBucket = redissonClient.getBucket(kickOutSign + removeSessionId);
+                KickoutUserVo removeKickOut = removeBucket.get();
+                if (removeKickOut != null) {
+                    removeKickOut.setKickout(true);
+                    removeBucket.set(removeKickOut);
                 }
-                if (kickoutSession != null) {
-                    kickoutSession.setAttribute(kickoutSessionKey, true);
-                }
-                if (session.getAttribute(kickoutSessionKey) != null) {
-                    subject.logout();
-                    ResponseUtil.setResponse(response, BCErrorCode.PARAMS_VALIDATE_ONTHER.getCode(), BCErrorCode.PARAMS_VALIDATE_ONTHER.getMsg(), null);
-                    return false;
-                }
+            }
+            //判断当前请求是否注销
+            if (kickoutUserDt.isKickout()) {
+                subject.logout();
+                rBucket.delete();
+                ResponseUtil.setResponse(response, BCErrorCode.PARAMS_VALIDATE_ONTHER.getCode(), BCErrorCode.PARAMS_VALIDATE_ONTHER.getMsg(), null);
+                return false;
             }
         } catch (Exception e) {
             log.error("并发控制异常,[{}]", e.getMessage());

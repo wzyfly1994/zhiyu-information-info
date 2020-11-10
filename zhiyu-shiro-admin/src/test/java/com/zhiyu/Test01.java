@@ -1,10 +1,11 @@
 package com.zhiyu;
 
+import com.zhiyu.entity.vo.KickoutUserVo;
 import com.zhiyu.repository.*;
 import com.zhiyu.utils.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.redisson.api.RLock;
+import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,10 +51,23 @@ public class Test01 {
 //        RBucket<String> bucket = redissonClient.getBucket("BBB");
 //        bucket.set("CC");
 //        bucket.set("CC");
-String aa="5";
-        RLock rLock = redissonClient.getLock("33333");
-        rLock.lock();
-        rLock.unlock();
+
+//        KickoutUserVo kickoutUserVo=new KickoutUserVo();
+//        kickoutUserVo.setSessionId("3333333");
+//        kickoutUserVo.setKickout(true);
+        RBucket<KickoutUserVo> rBucket = redissonClient.getBucket("GGG");
+        System.out.println(rBucket.isExists());
+//        KickoutUserVo kickoutUserVo=rBucket.get();
+//        if(kickoutUserVo==null){
+//            KickoutUserVo vo=new KickoutUserVo();
+//            vo.setKickout(true);
+//            rBucket.set(vo);
+//        }
+//        System.out.println("1+++++++++++"+kickoutUserVo);
+//
+//        RBucket<KickoutUserVo> rBuckets = redissonClient.getBucket("ABC");
+//        KickoutUserVo kickoutUsers=rBuckets.get();
+//        System.out.println(kickoutUsers);
     }
 
 }
