@@ -1,5 +1,6 @@
 package com.zhiyu.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.common.shiro.credentials.CustomCredentialsMatcher;
 import com.zhiyu.config.constant.BCErrorCode;
@@ -16,6 +17,7 @@ import com.zhiyu.repository.SystemUserRepository;
 import com.zhiyu.repository.SystemUserRoleRepository;
 import com.zhiyu.service.SystemService;
 import com.zhiyu.utils.JwtUtil;
+import com.zhiyu.utils.RedisUtil;
 import com.zhiyu.utils.ResponseData;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wengzhiyu
@@ -44,6 +47,8 @@ public class SystemServiceImpl implements SystemService {
     private SystemRoleRepository systemRoleRepository;
     @Resource
     private SystemUserRoleRepository systemUserRoleRepository;
+    @Resource
+    private RedisUtil redisUtil;
 
 
     @Override
@@ -121,6 +126,16 @@ public class SystemServiceImpl implements SystemService {
         BeanUtils.copyProperties(systemUserUpdateDto, systemUser);
         updateUserRole(userId, systemUserUpdateDto.getRoleList());
         return ResponseData.success("用户修改成功");
+    }
+
+    @Override
+    public void userSaveRedis(SystemUser systemUser) {
+        if (systemUser == null) {
+            throw new BusinessException("用户存入缓存时，数据为空");
+        }
+        String account = systemUser.getAccount();
+        String userString = JSON.toJSONString(systemUser);
+        redisUtil.set(Constants.LOGIN_USER + account, userString, TimeUnit.HOURS.toSeconds(3));
     }
 
 

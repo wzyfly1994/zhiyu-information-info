@@ -1,11 +1,19 @@
 package com.zhiyu.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhiyu.common.exception.BusinessException;
 import com.zhiyu.config.constant.Constants;
+import com.zhiyu.entity.pojo.system.SystemUser;
+import com.zhiyu.entity.vo.CommonDataVo;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 
@@ -17,7 +25,14 @@ import java.util.Map;
  * @date 2019/11/1
  */
 @Slf4j
+@Component
 public class JwtUtil {
+    private static RedisUtil redisUtil;
+
+    @Autowired
+    public void setRedisUtil(RedisUtil redisUtil) {
+        JwtUtil.redisUtil = redisUtil;
+    }
 
     private static Date getExpireTime() {
         return new Date(System.currentTimeMillis() + 7200000L);
@@ -76,6 +91,54 @@ public class JwtUtil {
             throw new BusinessException("token解析失败");
         }
         return claims;
+    }
+
+    /**
+     * 全局获取用户基本信息
+     *
+     * @return
+     */
+    public static CommonDataVo getCommonData() {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (servletRequestAttributes == null) {
+            throw new BusinessException("请求参数获取失败");
+        }
+        HttpServletRequest httpServletRequest = servletRequestAttributes.getRequest();
+        String token = httpServletRequest.getHeader(Constants.TOKEN_HEADER);
+        JSONObject result = validateToken(token);
+        boolean isValid = result.getBooleanValue("code");
+        String msg = result.getString("msg");
+        if (!isValid) {
+            throw new BusinessException(msg);
+        }
+        token = token.replace(Constants.TOKEN_PREFIX, "");
+        //解析传过来的token
+        Claims claims = getClaims(token);
+        String account = claims.get("account", String.class);
+        SystemUser systemUser = JSON.parseObject(String.valueOf(redisUtil.get(Constants.LOGIN_USER + account)), SystemUser.class);
+        CommonDataVo commonDataVo = new CommonDataVo();
+        commonDataVo.setAccount(account);
+        commonDataVo.setDeptId(systemUser.getDeptId());
+        commonDataVo.setUserName(systemUser.getUserName());
+        commonDataVo.setId(systemUser.getId());
+        return commonDataVo;
+    }
+
+
+    public static Long getUserId() {
+        return getCommonData().getId();
+    }
+
+    public static String getAccount() {
+        return getCommonData().getAccount();
+    }
+
+    public static Long getUserDepId() {
+        return getCommonData().getDeptId();
+    }
+
+    public static String getUserName() {
+        return getCommonData().getUserName();
     }
 
 }

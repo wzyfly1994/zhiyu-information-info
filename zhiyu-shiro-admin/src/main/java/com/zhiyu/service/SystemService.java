@@ -3,6 +3,7 @@ package com.zhiyu.service;
 import com.zhiyu.entity.dto.SystemUserAddDto;
 import com.zhiyu.entity.dto.SystemUserLoginDto;
 import com.zhiyu.entity.dto.SystemUserUpdateDto;
+import com.zhiyu.entity.pojo.system.SystemUser;
 import com.zhiyu.utils.ResponseData;
 
 /**
@@ -36,4 +37,10 @@ public interface SystemService {
      * @return
      */
     ResponseData updateUser(SystemUserUpdateDto systemUserUpdateDto);
+
+    /**
+     * 用户保存到redis
+     * @param systemUser
+     */
+    void   userSaveRedis(SystemUser systemUser);
 }

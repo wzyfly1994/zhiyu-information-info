@@ -3,6 +3,7 @@ package com.zhiyu.common.shiro.realm;
 import com.zhiyu.config.constant.Constants;
 import com.zhiyu.entity.pojo.system.*;
 import com.zhiyu.repository.*;
+import com.zhiyu.service.SystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
@@ -44,6 +45,8 @@ public class CustomRealm extends AuthorizingRealm {
     @Resource
     private SystemPermissionRepository systemPermissionRepository;
 
+    @Resource
+    private SystemService systemService;
 
     public CustomRealm(CredentialsMatcher credentialsMatcher) {
         super(credentialsMatcher);
@@ -115,6 +118,8 @@ public class CustomRealm extends AuthorizingRealm {
         String account = user.getAccount();
         Session session = SecurityUtils.getSubject().getSession();
         session.setAttribute(Constants.LOGIN_USER + account, user);
+        //缓存入redis
+        userOptional.ifPresent(userInfo -> systemService.userSaveRedis(userInfo));
         //ByteSource.Util.bytes(account) 为加盐值
         return new SimpleAuthenticationInfo(account, user.getPassWord(), ByteSource.Util.bytes(account), getName());
     }

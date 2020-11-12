@@ -2,6 +2,7 @@ package com.zhiyu.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zhiyu.config.constant.Constants;
+import com.zhiyu.utils.JwtUtil;
 import com.zhiyu.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
@@ -83,6 +84,7 @@ public class TestController {
 
     @GetMapping("/hello")
     public String hello() {
+        System.out.println(JwtUtil.getAccount());
         return "hello";
     }
 
