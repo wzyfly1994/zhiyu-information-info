@@ -53,7 +53,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
             shiroFilterChainMap.put("/**", "authc");
             return shiroFilterChainMap;
         } catch (Exception e) {
-            log.error("初始化shiro过滤链错误:[{}]", e.getMessage());
+            log.error("初始化shiro过滤链错误:", e);
             return new HashMap<>(0);
         }
 
@@ -81,6 +81,7 @@ public class SystemPermissionServiceImpl implements SystemPermissionService {
             }
             return shiroFilterFactoryBean.getFilterChainDefinitionMap();
         } catch (Exception e) {
+            log.error("更新过滤链失败：",e);
             throw new BusinessException("更新过滤链失败：" + e.getMessage());
         }
     }

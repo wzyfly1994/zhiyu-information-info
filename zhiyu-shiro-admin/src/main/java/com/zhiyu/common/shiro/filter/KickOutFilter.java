@@ -149,7 +149,7 @@ public class KickOutFilter extends AccessControlFilter {
                 return false;
             }
         } catch (Exception e) {
-            log.error("并发控制异常,[{}]", e.getMessage());
+            log.error("并发控制异常:", e);
             try {
                 ResponseUtil.setResponse(response, BCErrorCode.ERROR.getCode(), BCErrorCode.ERROR.getMsg(), null);
             } catch (IOException ex) {

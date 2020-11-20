@@ -21,7 +21,7 @@ public class FilterUtil {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.sendRedirect("/shiro-admin/system/loginError");
         } catch (IOException e) {
-            log.error(e.getMessage());
+            log.error("未授权的跳转失败:", e);
         }
     }
 }
