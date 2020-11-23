@@ -1,4 +1,4 @@
-package com.zhiyu.config.swagger;
+package com.zhiyu.pay.config.swagger;
 
 import com.google.common.base.Predicates;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +53,7 @@ public class SwaggerConfig {
                 // 同一个group不允许有多个docket
                 .apiInfo(apiInfo())
                 .select()
-                .apis(Predicates.or(RequestHandlerSelectors.basePackage("com.zhiyu.controller")))
+                .apis(Predicates.or(RequestHandlerSelectors.basePackage("com.zhiyu.pay.controller")))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(pars);
@@ -61,7 +61,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("后台管理 Api-IP：" + exposeHost)
+                .title("支付服务 Api-IP：" + exposeHost)
                 .description("swagger接口-IP：" + exposeHost)
                 .version("1.0")
                 .license("Apache License, Version 2.0")

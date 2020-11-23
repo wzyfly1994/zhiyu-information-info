@@ -17,10 +17,14 @@ spring:
         prefer-ip-address: true
     gateway:
       routes:
-        - id: 核心服务组件
+        - id: 后台管理
           uri: lb://shiro-admin
           predicates:
             - Path=/shiro-admin/**
+        - id: 支付服务
+          uri: lb://pay-service
+          predicates:
+            - Path=/pay-service/**
           filters:
             #设置StripPrefix=1表示从二级url路径转发  http://localhost:port/shiro-admin/test将会转发到http://{admin}/test
             - StripPrefix=1

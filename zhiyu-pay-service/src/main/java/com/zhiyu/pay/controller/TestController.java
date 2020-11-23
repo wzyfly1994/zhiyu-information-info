@@ -4,6 +4,7 @@ import cn.shuibo.annotation.Decrypt;
 import cn.shuibo.annotation.Encrypt;
 import com.alibaba.fastjson.JSON;
 import com.zhiyu.pay.entity.dto.PayDTO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/test")
+@Api(tags = "测试模块")
 public class TestController {
 
 

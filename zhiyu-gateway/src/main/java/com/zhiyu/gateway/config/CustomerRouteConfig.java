@@ -17,9 +17,13 @@ public class CustomerRouteConfig {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                // 公共服务组件
+                // 后台管理
                 .route(r -> r.path("/shiro-admin/**")
                         .uri("lb://shiro-admin/")
+                )
+                // 支付服务
+                .route(r -> r.path("/pay-service/**")
+                        .uri("lb://pay-service/")
                 )
                 .build();
     }

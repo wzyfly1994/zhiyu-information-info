@@ -2,6 +2,7 @@ package com.zhiyu.pay.controller;
 
 import com.zhiyu.pay.entity.dto.PayDTO;
 import com.zhiyu.pay.utils.ResponseData;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/pay")
+@Api(tags = "支付模块")
 public class PayController {
 
 

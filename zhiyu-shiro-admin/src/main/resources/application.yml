@@ -58,16 +58,3 @@ custom:
 
 
 
-#swagger:
-#  enabled: true #必填
-#  title:  核心组件服务 #必填
-#  description: 核心组件服务 #必填
-#  version: 2.0 #必填
-#  base-path: /** #必填
-#  contact:
-#    name: xiaoz
-#    email: gaowei@shenzhenpoly.com
-#  license: Apache License, Version 2.0
-#  license-url: https://www.apache.org/licenses/LICENSE-2.0.html
-#  base-package: com.zhiyu
-#  exclude-path: /error
