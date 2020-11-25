@@ -37,6 +37,7 @@
         <swagger2.version>2.9.2</swagger2.version>
         <redisson.version>3.12.5</redisson.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
+        <encrypt.version>1.0.1.RELEASE</encrypt.version>
     </properties>
 
     <dependencyManagement>
@@ -122,6 +123,13 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+
+            <!--  非对称加密工具-->
+            <dependency>
+                <groupId>cn.shuibo</groupId>
+                <artifactId>rsa-encrypt-body-spring-boot</artifactId>
+                <version>${encrypt.version}</version>
             </dependency>
 
         </dependencies>

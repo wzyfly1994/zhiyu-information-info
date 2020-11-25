@@ -32,7 +32,7 @@ public class PayDTO {
     private String attach;
 
     @ApiModelProperty(value = "1:支付宝 2:微信 3:银联",example = "1")
-    private Short payType;
+    private String payType;
 
     @ApiModelProperty(value = "支付方式 (1：PC,平板 2：手机)",example = "2")
     private Short payWay;

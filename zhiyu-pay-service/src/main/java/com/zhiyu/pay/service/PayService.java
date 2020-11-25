@@ -1,6 +1,7 @@
 package com.zhiyu.pay.service;
 
 import com.zhiyu.pay.entity.dto.PayDTO;
+import com.zhiyu.pay.utils.ResponseData;
 
 /**
  * @author wengzhiyu
@@ -15,5 +16,5 @@ public interface PayService {
      * @param payDTO
      * @return
      */
-    String payStart(PayDTO payDTO);
+    ResponseData payStart(PayDTO payDTO);
 }
