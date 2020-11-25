@@ -31,7 +31,7 @@ public class PayDTO {
     @ApiModelProperty(value = "附件数据主要用于商户携带订单的自定义数据",example = "")
     private String attach;
 
-    @ApiModelProperty(value = "1:支付宝 2:微信 3:银联",example = "1")
+    @ApiModelProperty(value = "1:支付宝 2:微信 3:银联",example = "WX_PAY")
     private String payType;
 
     @ApiModelProperty(value = "支付方式 (1：PC,平板 2：手机)",example = "2")
