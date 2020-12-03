@@ -3,10 +3,14 @@ package com.zhiyu.pay.controller;
 import cn.shuibo.annotation.Decrypt;
 import cn.shuibo.annotation.Encrypt;
 import com.alibaba.fastjson.JSON;
+import com.zhiyu.pay.common.annotation.ratelimiter.RateLimiters;
 import com.zhiyu.pay.entity.dto.PayDTO;
+import com.zhiyu.pay.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wengzhiyu
@@ -32,5 +36,12 @@ public class TestController {
     @PostMapping("/decryption")
     public String decryption(@RequestBody PayDTO payDTO){
         return JSON.toJSONString(payDTO);
+    }
+
+    @GetMapping("/var")
+    @RateLimiters(value = 1.0,timeout = 100,timeUnit = TimeUnit.MILLISECONDS)
+    public ResponseData test(String data){
+
+        return  ResponseData.success(data);
     }
 }

@@ -127,6 +127,11 @@
             <artifactId>rsa-encrypt-body-spring-boot</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

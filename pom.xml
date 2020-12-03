@@ -38,6 +38,7 @@
         <redisson.version>3.12.5</redisson.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
         <encrypt.version>1.0.1.RELEASE</encrypt.version>
+        <guava.version>28.2-jre</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -130,6 +131,12 @@
                 <groupId>cn.shuibo</groupId>
                 <artifactId>rsa-encrypt-body-spring-boot</artifactId>
                 <version>${encrypt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
 
         </dependencies>
