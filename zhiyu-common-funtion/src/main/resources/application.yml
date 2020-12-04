@@ -1,0 +1,52 @@
+# 上下文路径及端口设置
+# service 端口
+server:
+  port: 8055
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /common-funtion
+
+
+# 服务注册及暴露地址端口信息
+service:
+  registry:
+    expose-host: 127.0.0.1
+    expose-port: ${server.port}
+    consul-host: 127.0.0.1
+    consul-port: 8500
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /
+  server:
+    servlet:
+      context-path: ${server.servlet.context-path}
+    port: ${server.port}
+  endpoint:
+    health:
+      show-details: always
+info: {status: ok}
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: common-funtion
+  cloud:
+    consul:
+      host: ${service.registry.consul-host}
+      port: ${service.registry.consul-port}
+      discovery:
+        health-check-interval: 5s
+        serviceName: ${spring.application.name}
+        health-check-url: http://${service.registry.expose-host}:${service.registry.expose-port}${management.server.servlet.context-path}/info
+        enabled: true
+        # 默认设置queryPassing=false，即返回所有的服务，包括down掉的。通过配置改为true则可返回所有健康检查通过的服务
+        query-passing: true
+        prefer-ip-address: true
+
