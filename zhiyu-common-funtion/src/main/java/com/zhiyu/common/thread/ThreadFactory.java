@@ -10,9 +10,9 @@ import java.util.concurrent.ExecutorService;
  */
 public class ThreadFactory {
 
-    private static ExecutorService sendSmsExecutor;
+    private static ExecutorService firstExecutor;
 
-    private static ExecutorService asyncExecutor;
+    private static ExecutorService secondExecutor;
 
     private ThreadFactory() {
     }
@@ -21,24 +21,24 @@ public class ThreadFactory {
      * 初始化线程池
      */
     public static void init(){
-        if (sendSmsExecutor == null || asyncExecutor ==null){
+        if (firstExecutor == null || secondExecutor ==null){
             synchronized (ThreadFactory.class){
-                if (sendSmsExecutor == null) {
-                    sendSmsExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum(), "sendSmsThread");
+                if (firstExecutor == null) {
+                    firstExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum(), "sendSmsThread");
                 }
-                if(asyncExecutor == null){
-                    asyncExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum() / 2, "asyncThread");
+                if(secondExecutor == null){
+                    secondExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum() / 2, "asyncThread");
                 }
             }
         }
     }
 
-    public static ExecutorService getSendSmsExecutor() {
-        return sendSmsExecutor;
+    public static ExecutorService getFirstExecutor() {
+        return firstExecutor;
     }
 
-    public static ExecutorService getAsyncExecutor() {
-        return asyncExecutor;
+    public static ExecutorService getSecondExecutor() {
+        return secondExecutor;
     }
 
 
