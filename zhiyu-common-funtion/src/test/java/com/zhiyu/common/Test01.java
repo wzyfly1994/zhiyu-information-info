@@ -17,11 +17,16 @@ public class Test01 {
     @Test
     public void test() {
 
-        try {
-            int a = 1 / 0;
-        } catch (Exception e) {
-            log.error("错误", e);
-        }
+//        Thread thread1=new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("2222");
+//                System.out.println("ThresdName---"+Thread.currentThread().getName());
+//                for (int i = 0; i <10 ; i++) {
+//                }
+//            }
+//        });
+//        thread1.start();
     }
 
     @Test
@@ -32,6 +37,7 @@ public class Test01 {
         //send();
         System.out.println("结束了");
     }
+
 
     private void send() {
         for (int i = 0; i < 10; i++) {
