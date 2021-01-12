@@ -55,6 +55,14 @@ custom:
     secret-key: zhiyu-secret
 
 
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        ConnectTimeout: 30000
+        ReadTimeout: 30000
 
 
 

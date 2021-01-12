@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,32 +18,60 @@ public class Test01 {
     @Test
     public void test() {
 
-//        Thread thread1=new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("2222");
-//                System.out.println("ThresdName---"+Thread.currentThread().getName());
-//                for (int i = 0; i <10 ; i++) {
-//                }
-//            }
-//        });
-//        thread1.start();
+        Thread thread1=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("2222");
+                System.out.println("ThresdName---"+Thread.currentThread().getName());
+                for (int i = 0; i <10 ; i++) {
+                }
+            }
+        });
+        thread1.start();
     }
+
+
+
 
     @Test
     public void testThread() {
         ThreadFactory.init();
         ExecutorService executor = ThreadFactory.getFirstExecutor();
-        executor.submit(this::send);
+        try {
+            Future<Integer> submit = executor.submit(this::send);
+            System.out.println(submit.get());
+            Future<?> submits= executor.submit(this::send1);
+           // Thread.currentThread().join();
+            submits.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // send();
         //send();
         System.out.println("结束了");
+//
+//        int cpu=Runtime.getRuntime().availableProcessors();
+//        System.out.println(cpu);
     }
 
 
-    private void send() {
-        for (int i = 0; i < 10; i++) {
+    public    int send() {
+        for (int i = 0; i < 3; i++) {
             try {
-                System.out.println("线程名字:" + Thread.currentThread().getName());
+                System.out.println("线程名字111:" + Thread.currentThread().getName());
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return 1;
+    }
+
+
+    public    void send1() {
+        for (int i = 0; i < 3; i++) {
+            try {
+                System.out.println("线程名字2222:" + Thread.currentThread().getName());
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();

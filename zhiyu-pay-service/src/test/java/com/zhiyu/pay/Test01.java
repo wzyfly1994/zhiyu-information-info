@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+
+
 @SpringBootTest(classes = PayServiceApplication.class)
 @RunWith(SpringRunner.class)
 class Test01 {
@@ -15,7 +17,8 @@ class Test01 {
     private PayConfig payConfig;
     @Test
     void contextLoads() {
-        System.out.println(payConfig.getSignType());
+        System.out.println(payConfig.getSignType()
+        );
     }
 
 }

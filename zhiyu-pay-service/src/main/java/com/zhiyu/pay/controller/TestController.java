@@ -8,6 +8,7 @@ import com.zhiyu.pay.entity.dto.PayDTO;
 import com.zhiyu.pay.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/test")
 @Api(tags = "测试模块")
+@Slf4j
 public class TestController {
 
 
@@ -56,5 +58,20 @@ public class TestController {
         assert httpServletResponse != null;
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         return "ok";
+    }
+
+
+    @GetMapping("/sleep")
+    public String testSleep() {
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+                log.info("ThreadName----,[{}]", Thread.currentThread().getName());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return "suucess";
     }
 }

@@ -10,7 +10,7 @@
 
     <groupId>com.zhiyu.common</groupId>
     <artifactId>zhiyu-common-funtion</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>zhiyu-common-funtion</name>
     <description>公共工具包</description>
 
@@ -98,13 +98,21 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+<!--                spring boot默认将每个module打包成一个fat jar，这个jar包和我们正常使用的jar包内部的结构是不相同的，-->
+<!--                如下图所示，fat jar包含了直接运行所需要的所有信息（包含内嵌的容器，如果是一个web应用的话），-->
+<!--                那么类的加载路径此时就发生了变化，所以在编译时会提示找不到引用类。url:https://blog.csdn.net/persistencegoing/article/details/86718448-->
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
