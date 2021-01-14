@@ -9,6 +9,7 @@ import com.zhiyu.pay.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -26,6 +27,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TestController {
 
+
+    @Value("${server.port}")
+    public Integer port;
 
     @GetMapping("/encrypt")
     @ApiOperation("测试返回值加密")
@@ -57,7 +61,7 @@ public class TestController {
         HttpServletResponse httpServletResponse = servletRequestAttributes.getResponse();
         assert httpServletResponse != null;
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
-        return "ok";
+        return "服务端口号：" + port;
     }
 
 

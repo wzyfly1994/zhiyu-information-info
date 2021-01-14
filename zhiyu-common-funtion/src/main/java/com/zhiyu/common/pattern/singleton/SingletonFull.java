@@ -16,7 +16,9 @@ public class SingletonFull {
     public static SingletonFull getInstance() {
         if (singletonFull == null) {
             synchronized (SingletonFull.class) {
-                singletonFull = new SingletonFull();
+                if (singletonFull == null) {
+                    singletonFull = new SingletonFull();
+                }
             }
         }
         return singletonFull;
