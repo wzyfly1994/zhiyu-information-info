@@ -24,10 +24,10 @@ public class ThreadFactory {
         if (firstExecutor == null || secondExecutor ==null){
             synchronized (ThreadFactory.class){
                 if (firstExecutor == null) {
-                    firstExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum(), "sendSmsThread");
+                    firstExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum(), "firstThreadPool");
                 }
                 if(secondExecutor == null){
-                    secondExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum() / 2, "asyncThread");
+                    secondExecutor = ThreadPoolFactory.createFixedThreadPool(desiredThreadNum() / 2, "secondThreadPool");
                 }
             }
         }

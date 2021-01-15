@@ -15,6 +15,7 @@ spring:
         # 默认设置queryPassing=false，即返回所有的服务，包括down掉的。通过配置改为true则可返回所有健康检查通过的服务
         query-passing: true
         prefer-ip-address: true
+        tags: pay-instance1
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/wzy?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true

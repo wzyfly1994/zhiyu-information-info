@@ -50,3 +50,7 @@ spring:
         query-passing: true
         prefer-ip-address: true
 
+#负载均衡规则
+#pay-service:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.zhiyu.common.config.LoadBalanceRule
