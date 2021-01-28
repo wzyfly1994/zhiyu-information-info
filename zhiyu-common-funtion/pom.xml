@@ -117,7 +117,7 @@
                     <classifier>exec</classifier>
                 </configuration>
             </plugin>
-
+            <!--maven 打包时跳过Test -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>

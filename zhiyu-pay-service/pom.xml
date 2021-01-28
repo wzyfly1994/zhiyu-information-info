@@ -164,6 +164,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--maven 打包时跳过Test -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
