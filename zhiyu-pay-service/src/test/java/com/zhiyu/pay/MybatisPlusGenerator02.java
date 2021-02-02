@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class MybatisPlusGenerator02 {
 
     static final String TABLE_NAME = "t_org_company";
-    static final String MODULE_NAME = "orgcompany";
+    static final String MODULE_NAME = "torgcompany";
     static final String AUTHOR = "wengzhiyu";
 
 
