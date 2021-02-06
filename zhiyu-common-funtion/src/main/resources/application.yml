@@ -54,3 +54,12 @@ spring:
 #pay-service:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.zhiyu.common.config.LoadBalanceRule
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        ConnectTimeout: 30000
+        ReadTimeout: 30000

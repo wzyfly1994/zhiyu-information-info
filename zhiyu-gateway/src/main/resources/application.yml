@@ -21,12 +21,45 @@ spring:
           uri: lb://shiro-admin
           predicates:
             - Path=/shiro-admin/**
+          filters:
+           - name: Hystrix
+             args:
+               name: fallbackcmd
+               fallbackUri: forward:/fallback
         - id: 支付服务
           uri: lb://pay-service
           predicates:
             - Path=/pay-service/**
           filters:
-            #设置StripPrefix=1表示从二级url路径转发  http://localhost:port/shiro-admin/test将会转发到http://{admin}/test
-            - StripPrefix=1
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
 
 
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+
+ribbon:
+  eager-load:
+    enabled: true
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+open:
+  path:
+    global: /*/v2/api-docs;/*/info;/*/open/**
+
+jwt:
+  signing:
+    key: cf7031334895495582bf05fa6d2f57e1

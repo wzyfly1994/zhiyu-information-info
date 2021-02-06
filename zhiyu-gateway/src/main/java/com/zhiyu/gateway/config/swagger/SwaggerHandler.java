@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import springfox.documentation.swagger.web.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,21 +26,13 @@ public class SwaggerHandler {
 
 
     @Autowired(required = false)
-    private SecurityConfiguration securityConfiguration;
-
-    @Autowired(required = false)
     private UiConfiguration uiConfiguration;
 
-    @Resource
-    private  SwaggerProvider swaggerProvider;
+    @Autowired(required = false)
+    private SecurityConfiguration securityConfiguration;
 
-
-
-    @GetMapping("/configuration/security")
-    public Mono<ResponseEntity<SecurityConfiguration>> securityConfiguration() {
-        return Mono.just(new ResponseEntity<>(
-                Optional.ofNullable(securityConfiguration).orElse(SecurityConfigurationBuilder.builder().build()), HttpStatus.OK));
-    }
+    @Autowired
+    private SwaggerProvider swaggerProvider;
 
     @GetMapping("/configuration/ui")
     public Mono<ResponseEntity<UiConfiguration>> uiConfiguration() {
@@ -49,9 +40,15 @@ public class SwaggerHandler {
                 Optional.ofNullable(uiConfiguration).orElse(UiConfigurationBuilder.builder().build()), HttpStatus.OK));
     }
 
-    @GetMapping("")
+    @GetMapping("/configuration/security")
+    public Mono<ResponseEntity<SecurityConfiguration>> securityConfiguration() {
+        return Mono.just(new ResponseEntity<>(
+                Optional.ofNullable(securityConfiguration).orElse(SecurityConfigurationBuilder.builder().build()), HttpStatus.OK));
+    }
+
+    @GetMapping
     public Mono<ResponseEntity> swaggerResources() {
-        List<SwaggerResource> list=swaggerProvider.get();
+        List<SwaggerResource> list = swaggerProvider.get();
         return Mono.just((new ResponseEntity<>(list, HttpStatus.OK)));
     }
 }
