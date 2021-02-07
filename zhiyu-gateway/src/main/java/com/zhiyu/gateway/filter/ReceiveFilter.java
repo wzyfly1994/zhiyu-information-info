@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 /**
  * 接受过滤器（解决POST请求报错：Only one connection receive subscriber allowed）
  *
- * @author 向振华
+ * @author wengzhiyu
  * @date 2021/01/30 10:01
  */
 @Component
