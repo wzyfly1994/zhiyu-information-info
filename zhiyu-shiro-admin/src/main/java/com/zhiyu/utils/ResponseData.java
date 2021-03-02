@@ -2,12 +2,16 @@ package com.zhiyu.utils;
 
 
 import com.zhiyu.config.constant.BCErrorCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 
 /**
  * @author wzy
  */
+@Setter
+@Getter
 public class ResponseData {
 
     private Object data;
@@ -61,30 +65,5 @@ public class ResponseData {
         res.setMsg(msg);
         res.setData(data);
         return res;
-    }
-
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    private void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    private void setCode(Integer code) {
-        this.code = code;
     }
 }
