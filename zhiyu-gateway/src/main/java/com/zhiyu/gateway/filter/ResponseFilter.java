@@ -15,7 +15,6 @@ import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,7 +30,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.O
  * @date 2021/01/30 10:01
  */
 @Slf4j
-@Component
+//@Component
 public class ResponseFilter implements GlobalFilter, Ordered {
 
     @Override
