@@ -5,6 +5,7 @@ package com.zhiyu;
  * @date 2021/2/6
  */
 public class Test02 {
+    public  static  volatile int a=0;
 
     public Test02(Test03 test03) {
     }
@@ -17,6 +18,7 @@ public class Test02 {
     }
 
     public void tcp(int cc){
+        int a=0;
 
     }
 
