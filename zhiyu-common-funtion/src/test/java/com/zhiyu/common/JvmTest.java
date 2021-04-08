@@ -1,7 +1,5 @@
 package com.zhiyu.common;
 
-import org.springframework.beans.factory.FactoryBean;
-
 import java.text.DecimalFormat;
 
 /**

@@ -2,13 +2,18 @@ package com.zhiyu.service.impl;
 
 
 import com.zhiyu.entity.pojo.dictionary.ColumnDomain;
+import com.zhiyu.entity.pojo.system.SystemPermission;
 import com.zhiyu.entity.vo.DictionaryVo;
 import com.zhiyu.repository.ColumnDomainRepository;
+import com.zhiyu.repository.SystemPermissionRepository;
 import com.zhiyu.repository.jpa.BaseNativeSql;
 import com.zhiyu.service.DictionaryService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,6 +30,8 @@ public class DictionaryServiceImpl extends BaseNativeSql implements DictionarySe
     @Resource
     ColumnDomainRepository columnDomainRepository;
 
+    @Autowired
+    private SystemPermissionRepository systemPermissionRepository;
 
     @Override
     public Map<String, List<DictionaryVo>> loadKevValueManage(String selectName) {
@@ -74,5 +81,15 @@ public class DictionaryServiceImpl extends BaseNativeSql implements DictionarySe
             }
         }
         return linkHashMap;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.SUPPORTS)
+    public void permissionSave() {
+        SystemPermission systemPermission = new SystemPermission();
+        systemPermission.setMenuId(55L);
+        systemPermission.setDescription("权限1");
+        systemPermissionRepository.save(systemPermission);
+        //throw new BusinessException("1");
     }
 }

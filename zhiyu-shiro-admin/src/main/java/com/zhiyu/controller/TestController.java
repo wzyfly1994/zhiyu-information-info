@@ -2,6 +2,7 @@ package com.zhiyu.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zhiyu.config.constant.Constants;
+import com.zhiyu.service.TestService;
 import com.zhiyu.utils.JwtUtil;
 import com.zhiyu.utils.RedisUtil;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionKey;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,9 @@ public class TestController {
 
     @Resource
     private SessionManager sessionManager;
+
+    @Autowired
+    private TestService testService;
 
     @GetMapping("/setSession/{value}")
     public String setSession(@PathVariable String value, HttpServletRequest httpServletRequest) {
@@ -75,7 +80,7 @@ public class TestController {
     public String getSubjectSession(@PathVariable String value) {
         String result;
         try {
-           result = "SubjectSession:" + SecurityUtils.getSubject().getSession().getId();
+            result = "SubjectSession:" + SecurityUtils.getSubject().getSession().getId();
         } catch (Exception e) {
             result = "SubjectSession读取失败:" + e.getMessage();
         }
@@ -90,7 +95,7 @@ public class TestController {
 
 
     @GetMapping("/getSubjectSessionId/{sessionId}")
-    public Session getSessionById(@PathVariable  String sessionId){
+    public Session getSessionById(@PathVariable String sessionId) {
         SessionKey sessionKey = new SessionKey() {
             @Override
             public Serializable getSessionId() {
@@ -98,6 +103,12 @@ public class TestController {
             }
         };
         return sessionManager.getSession(sessionKey);
+    }
+
+    @GetMapping("/testTrsasat")
+    public String testTransactional() {
+        testService.roleSave();
+        return "success";
     }
 
 }

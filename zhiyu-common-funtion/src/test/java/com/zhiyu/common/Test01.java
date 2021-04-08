@@ -4,9 +4,8 @@ import com.zhiyu.common.thread.ThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author wengzhiyu
@@ -40,7 +39,7 @@ public class Test01 {
         try {
             Future<Integer> submit = executor.submit(this::send);
             System.out.println(submit.get());
-            Future<?> submits= executor.submit(this::send1);
+            Future submits= executor.submit(this::send1);
            // Thread.currentThread().join();
             submits.get();
         } catch (Exception e) {
@@ -77,5 +76,12 @@ public class Test01 {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    public void testThreads(){
+        AtomicInteger atomicInteger=new AtomicInteger(0);
+        new ThreadPoolExecutor(10, 20, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1024)
+                , r -> new Thread(r, "Thread" + "-" + atomicInteger.getAndIncrement()), new ThreadPoolExecutor.AbortPolicy());
     }
 }

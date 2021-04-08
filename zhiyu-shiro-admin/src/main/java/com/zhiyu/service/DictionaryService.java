@@ -19,4 +19,10 @@ public interface DictionaryService {
      * @return
      */
     Map<String, List<DictionaryVo>> loadKevValueManage(String selectName);
+
+
+    /**
+     * 测试保存权限
+     */
+    void permissionSave();
 }
