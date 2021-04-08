@@ -42,7 +42,7 @@
         <redisson.version>3.12.5</redisson.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
         <encrypt.version>1.0.1.RELEASE</encrypt.version>
-        <guava.version>28.2-jre</guava.version>
+        <guava.version>30.0-jre</guava.version>
         <velocity.version>2.2</velocity.version>
         <zhiyu.common.version>1.0.0</zhiyu.common.version>
         <zkclient.version>0.11</zkclient.version>
@@ -186,4 +186,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>nexus-aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

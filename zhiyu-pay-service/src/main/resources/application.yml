@@ -40,17 +40,17 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印sql
 
 
-rocketmq:
-  name-server: http://MQ_INST_
-  producer:
-    access-key: 123456
-    secret-key: 123456
-    group: GID
-    sendMessageTimeout: 300000
-    topic:
-      log: GID
-    tag:
-      log: GID
+#rocketmq:
+#  name-server: http://MQ_INST_
+#  producer:
+#    access-key: 123456
+#    secret-key: 123456
+#    group: GID
+#    sendMessageTimeout: 300000
+#    topic:
+#      log: GID
+#    tag:
+#      log: GID
 
 pay:
   config:
