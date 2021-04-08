@@ -61,7 +61,7 @@ public class Test02 {
         KeyPair pair = SecureUtil.generateKeyPair("RSA");
         String privateKeyStr = Base64.encode(pair.getPrivate().getEncoded());
         String publicKeyStr = Base64.encode(pair.getPublic().getEncoded());
-        Map<String, String> keyMap = new HashMap<>(2);
+        HashMap<String, String> keyMap = new HashMap<>(2);
         keyMap.put("privateKey", privateKeyStr);
         keyMap.put("publicKey", publicKeyStr);
         return keyMap;

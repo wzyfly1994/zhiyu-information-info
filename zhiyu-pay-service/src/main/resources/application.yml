@@ -40,7 +40,17 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印sql
 
 
-
+rocketmq:
+  name-server: http://MQ_INST_1504213241298383_Bax20I40.mq-internet-access.mq-internet.aliyuncs.com:80
+  producer:
+    access-key: LTAILcqEW2vmqcLO
+    secret-key: UJ8LnRKSiSyNFGKRPHkZfUgrZz1rMT
+    group: GID_LOG_SERVICE_LOG_DEV
+    sendMessageTimeout: 300000
+    topic:
+      log: saas-normal
+    tag:
+      log: message-log-dev
 
 pay:
   config:

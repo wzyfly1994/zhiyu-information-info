@@ -46,6 +46,7 @@
         <velocity.version>2.2</velocity.version>
         <zhiyu.common.version>1.0.0</zhiyu.common.version>
         <zkclient.version>0.11</zkclient.version>
+        <rocketmq.version>2.0.3</rocketmq.version>
     </properties>
 
     <dependencyManagement>
@@ -157,6 +158,13 @@
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${zkclient.version}</version>
+            </dependency>
+
+            <!--rocketmq-spring-boot-->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.version}</version>
             </dependency>
 
         </dependencies>

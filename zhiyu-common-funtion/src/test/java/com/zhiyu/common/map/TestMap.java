@@ -1,8 +1,6 @@
 package com.zhiyu.common.map;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author wengzhiyu
@@ -23,7 +21,15 @@ public class TestMap {
         System.out.println(Arrays.toString(nodeArr));
         String cc = "c";
         String aa = "b";
-        HashSet<String> set=new HashSet<>();
+        HashSet<String> set = new HashSet<>();
         set.add("1");
+        "eq".equals("BB");
+
+        ArrayList<String> list = new ArrayList<>(16) ;
+        list.add("1");
+        LinkedList<String> linkedList=new LinkedList<>();
+        linkedList.add("3");
+        LinkedHashMap<String,String> linkedHashMap=new LinkedHashMap(16);
+        linkedHashMap.put("123","333");
     }
 }
