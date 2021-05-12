@@ -19,6 +19,7 @@
         <module>zhiyu-dubbo-consumer</module>
         <module>zhiyu-dubbo-api</module>
         <module>zhiyu-security-authentication</module>
+        <module>xxl-job</module>
     </modules>
 
     <parent>
@@ -48,6 +49,7 @@
         <zhiyu.common.version>1.0.0</zhiyu.common.version>
         <zkclient.version>0.11</zkclient.version>
         <rocketmq.version>2.0.3</rocketmq.version>
+        <xxl-job-core.version>2.3.1-SNAPSHOT</xxl-job-core.version>
     </properties>
 
     <dependencyManagement>
@@ -166,6 +168,13 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq.version}</version>
+            </dependency>
+
+            <!-- xxl-job-core -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job-core.version}</version>
             </dependency>
 
         </dependencies>
