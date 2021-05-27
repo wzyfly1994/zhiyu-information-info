@@ -18,6 +18,7 @@
         <module>zhiyu-dubbo-provider</module>
         <module>zhiyu-dubbo-consumer</module>
         <module>zhiyu-dubbo-api</module>
+        <module>zhiyu-eureka-server</module>
         <module>zhiyu-security-authentication</module>
         <module>xxl-job</module>
     </modules>
