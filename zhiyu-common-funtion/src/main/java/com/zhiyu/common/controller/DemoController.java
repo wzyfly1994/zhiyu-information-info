@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,11 +28,12 @@ public class DemoController {
 
 
     @GetMapping("/async")
+    @Transactional(rollbackFor = Exception.class)
     public void demoAsync() {
         demoService.async1();
         demoService.async2();
         demoService.async3();
-        log.info("《======================================================》");
+        log.info("《==================demoAsync====================================》");
     }
 
     @GetMapping("/redislock")

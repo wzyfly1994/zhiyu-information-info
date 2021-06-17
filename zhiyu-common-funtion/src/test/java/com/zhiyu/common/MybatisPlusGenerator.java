@@ -1,6 +1,5 @@
-package com.zhiyu.pay;
+package com.zhiyu.common;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
@@ -10,15 +9,15 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 /**
+ * 实体生产类
+ *
  * @author wengzhiyu
- * @date 2021/1/22
+ * @date 2020/11/12
  */
-public class MybatisPlusGenerator02 {
-
-    static final String TABLE_NAME = "t_org_company";
-    static final String MODULE_NAME = "torgcompany";
+public class MybatisPlusGenerator {
+    static final String TABLE_NAME = "system_role";
+    static final String MODULE_NAME = "systemrole";
     static final String AUTHOR = "wengzhiyu";
-
 
     //修改TABLE_NAME、MODULE_NAME、AUTHOR后运行main方法
     //注意，会覆盖MODULE_NAME下的所有代码
@@ -28,10 +27,10 @@ public class MybatisPlusGenerator02 {
 
         // 全局配置
         GlobalConfig globalConfig = new GlobalConfig();
-        String projectPath = "D:/mybatisPo"; //项目目录
+        String projectPath = "E:/generator"; //项目目录
         System.out.println("11"+projectPath);
-        //globalConfig.setOutputDir(projectPath + "/src/main/java");
-        globalConfig.setOutputDir(projectPath );
+        //String projectPath = "D://generator";
+        globalConfig.setOutputDir(projectPath + "/src/main/java");
         globalConfig.setOpen(true);  //生成后打开文件目录
         globalConfig.setFileOverride(true);  //覆盖文件
         globalConfig.setBaseResultMap(true);  //生成BaseResultMap
@@ -39,15 +38,13 @@ public class MybatisPlusGenerator02 {
         globalConfig.setServiceName("%sService");  //自定义service接口名
         globalConfig.setDateType(DateType.ONLY_DATE);  //使用java.util.Date
         globalConfig.setAuthor(AUTHOR);
-        globalConfig.setIdType(IdType.ASSIGN_UUID);//主键策略
-        globalConfig.setSwagger2(true);
         autoGenerator.setGlobalConfig(globalConfig);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         // 改数据库连接
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/wzy?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/wzy?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         // 改账号密码
         dsc.setUsername("root");
         dsc.setPassword("123456");
@@ -56,7 +53,7 @@ public class MybatisPlusGenerator02 {
         // 包配置
         PackageConfig pc = new PackageConfig();
         // 实体包名
-        pc.setParent("sas");
+        pc.setParent("com.zhiyu.common");
         pc.setServiceImpl("service");  //在service包下生成Impl
         pc.setXml("mapper");  //在mapper生成xml
         pc.setModuleName(MODULE_NAME);
@@ -72,8 +69,8 @@ public class MybatisPlusGenerator02 {
         strategy.setEntityLombokModel(true);
         //生成 @RestController 控制器
         strategy.setRestControllerStyle(true);
-        //生成实体时去掉表前缀
-        strategy.setTablePrefix("t_org");
+        // 改表前缀
+        //strategy.setTablePrefix("td");
         //需要包含的表名，允许正则表达式（与exclude二选一配置）
         strategy.setInclude(TABLE_NAME);
         autoGenerator.setStrategy(strategy);

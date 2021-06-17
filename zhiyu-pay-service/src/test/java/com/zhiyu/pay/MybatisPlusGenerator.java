@@ -27,7 +27,7 @@ public class MybatisPlusGenerator {
 
         // 全局配置
         GlobalConfig globalConfig = new GlobalConfig();
-        String projectPath = "D:/polyWeb1117/hiyu-information-info/zhiyu-pay-service"; //项目目录
+        String projectPath = "D:/polyWeb1117/zhiyu-information-info/zhiyu-pay-service"; //项目目录
         System.out.println("11"+projectPath);
         //String projectPath = "D://generator";
         globalConfig.setOutputDir(projectPath + "/src/main/java");

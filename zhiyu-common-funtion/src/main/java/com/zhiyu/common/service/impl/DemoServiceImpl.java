@@ -1,9 +1,14 @@
 package com.zhiyu.common.service.impl;
 
+import com.zhiyu.common.entity.pojo.SystemRole;
 import com.zhiyu.common.service.DemoService;
+import com.zhiyu.common.service.SystemRoleService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author wengzhiyu
@@ -13,21 +18,39 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class DemoServiceImpl implements DemoService {
 
+    @Autowired
+    private SystemRoleService systemRoleService;
+
+
     @Override
-    @Async
+    //@Async
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRES_NEW)
     public void async1() {
         log.info("runIn----async1-->"+Thread.currentThread().getName());
+        saveData("async1");
     }
 
     @Override
-    @Async
+     @Async
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRES_NEW)
     public void async2() {
         log.info("runIn----async2-->"+Thread.currentThread().getName());
+        saveData("async2");
+        int i=1/0;
     }
 
     @Override
-    @Async
+    // @Async
+    @Transactional(rollbackFor = Exception.class)
     public void async3() {
         log.info("runIn----async3-->"+Thread.currentThread().getName());
+        saveData("async3");
+    }
+
+
+    private void saveData(String data){
+        SystemRole systemRole = new SystemRole();
+        systemRole.setRoleName(data);
+        systemRoleService.save(systemRole);
     }
 }
